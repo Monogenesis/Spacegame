@@ -2,86 +2,106 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Player extends Projectile implements Entity{
+public class Player extends Projectile implements Entity {
 
 	private double x;
 	private double y;
 
 	private double velX = 0;
 	private double velY = 0;
-	
+
 	private static int BOUNDWIDTH = 25;
 	private static int BOUNDHEIGHT = 17;
 
+	private static int startXPos = 200;
+	private static int startYPos = 200;
+
 	private Textures tex;
-	
+
 	private Animation anima;
-	
+	Controller controller;
 	private int health = 3;
-	
+
 	public Player(double x, double y, Textures tex) {
 		this.x = x;
 		this.y = y;
 		this.tex = tex;
-		
+
 		anima = new Animation(4, tex.player[0], tex.player[1], tex.player[2]);
-		
+
 	}
-	
+
+	public Controller getController() {
+		return this.controller;
+	}
+
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
+
 	public void tick() {
-		
+
 		x += velX;
 		y += velY;
-		
-		if(x <= 0)
+
+		if (x <= 0)
 			x = 0;
-		if(x >= 640 - 20)
+		if (x >= 640 - 20)
 			x = 640 - 20;
-		if(y <= 0)
+		if (y <= 0)
 			y = 0;
-		if(y >= 480 - 32)
+		if (y >= 480 - 32)
 			y = 480 - 32;
-		
-		for(int i = 0; i < Controller.e.size(); i++) {
-			
-			if(Controller.e.get(i) instanceof Enemy) {
-				Enemy tempEnemy = (Enemy)Controller.e.get(i);
-				if(collision(getbounds(), Controller.e.get(i).getbounds()))	{
-					System.out.println(	collision(getbounds(), Controller.e.get(i).getbounds()));	
+
+		for (int i = 0; i < Controller.e.size(); i++) {
+
+			if (Controller.e.get(i) instanceof Enemy) {
+				Enemy tempEnemy = (Enemy) Controller.e.get(i);
+				if (collision(getbounds(), Controller.e.get(i).getbounds())) {
+					System.out.println(collision(getbounds(), Controller.e.get(i).getbounds()));
 					tempEnemy.destroySelf();
 					Controller.e.remove(tempEnemy);
-					loseHealth();					
+					loseHealth();
 				}
 			}
-			
-			
+
 		}
-		
+
 		anima.runAnimation();
-		
+
 	}
+
 	public void loseHealth() {
 		--health;
+		if (health <= 0) {
+			resetPlayer();
+		}
 	}
-	
+
+	private void resetPlayer() {
+		x = startXPos;
+		y = startYPos;
+		health = 3;
+		controller.restartlevel();
+	}
+
 	public void render(Graphics g) {
-		
-		
+
 		anima.drawAnimation(g, x, y, 0);
 
-		if(health == 3)
+		if (health == 3)
 			g.drawImage(tex.health3, 20, 20, null);
 		else if (health == 2)
 			g.drawImage(tex.health2, 20, 20, null);
-		else if(health == 1)
+		else if (health == 1)
 			g.drawImage(tex.health1, 20, 20, null);
-		
-		
+
 	}
+
 	public Rectangle getbounds() {
-		return new Rectangle((int)x, (int)y, BOUNDWIDTH, BOUNDHEIGHT);
+		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
 	}
-	
+
 	public void setVelY(double velY) {
 		this.velY = velY;
 	}
@@ -89,7 +109,7 @@ public class Player extends Projectile implements Entity{
 	public void setVelX(double velX) {
 		this.velX = velX;
 	}
-	
+
 	public double getX() {
 		return x;
 	}
@@ -97,7 +117,7 @@ public class Player extends Projectile implements Entity{
 	public void setX(double x) {
 		this.x = x;
 	}
-	
+
 	public double getY() {
 		return y;
 	}
@@ -106,7 +126,9 @@ public class Player extends Projectile implements Entity{
 		this.y = y;
 	}
 
+	@Override
+	public String toString() {
+		return "{" + " x='" + x + "'" + ", y='" + y + "'" + ", velX='" + velX + "'" + ", velY='" + velY + "'" + "}";
+	}
 
-	
-	
 }
