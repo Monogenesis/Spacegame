@@ -10,7 +10,7 @@ public class MouseInput implements MouseListener {
 		this.game = game;
 	}
 
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 
 	}
 
@@ -25,7 +25,6 @@ public class MouseInput implements MouseListener {
 
 	public void mousePressed(MouseEvent e) {
 		game.mousePressed(e);
-
 	}
 
 	public void mouseReleased(MouseEvent e) {

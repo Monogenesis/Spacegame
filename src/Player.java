@@ -10,8 +10,8 @@ public class Player extends Projectile implements Entity {
 	private double velX = 0;
 	private double velY = 0;
 
-	private static int BOUNDWIDTH = 25;
-	private static int BOUNDHEIGHT = 17;
+	public static int BOUNDWIDTH = 25;
+	public static int BOUNDHEIGHT = 17;
 
 	private static int startXPos = 200;
 	private static int startYPos = 200;

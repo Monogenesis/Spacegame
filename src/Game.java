@@ -123,8 +123,12 @@ public class Game extends Canvas implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if (mouseControl)
-				mouseControl();
+			// System.out.printf("Mousecontroll: %s, right: %s, left: %s, up: %s,
+			// down:%s%n", mouseControl, right, left,
+			// up, down);
+			// if (mouseControl)
+			// mouseControl();
+
 			if (right == true)
 				p.setVelX(5);
 			if (left == true)
@@ -241,16 +245,23 @@ public class Game extends Canvas implements Runnable {
 		double mx = MouseInfo.getPointerInfo().getLocation().getX() - this.getLocationOnScreen().getX();
 		double my = MouseInfo.getPointerInfo().getLocation().getY() - this.getLocationOnScreen().getY();
 
-		System.out.printf("Mousecontrol: %s, mouseX: %s, mouseY: %s --- %s%n", mouseControl, mx, my, p);
+		// System.out.printf("Mousecontrol: %s, mouseX: %s, mouseY: %s --- %s%n",
+		// mouseControl, mx, my, p);
 		if (state == STATE.Game) {
-			if (mx >= p.getX()) {
+			if (mx > p.getX() + Player.BOUNDWIDTH) {
+				left = false;
 				right = true;
-			} else if (mx < p.getX()) {
+			}
+			if (mx < p.getX() + Player.BOUNDWIDTH) {
+				right = false;
 				left = true;
 			}
-			if (my >= p.getY()) {
+			if (my > p.getY() + Player.BOUNDHEIGHT) {
+				up = false;
 				down = true;
-			} else if (mx < p.getY()) {
+			}
+			if (mx < p.getY() + Player.BOUNDHEIGHT) {
+				down = false;
 				up = true;
 			}
 		}
@@ -285,27 +296,33 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		mouseControl = false;
 		int mx = e.getX();
 		int my = e.getY();
-		left = false;
-		down = false;
-		up = false;
-		right = false;
-		if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 150 && my <= 200) {
-			// pressed playbutton
-			Game.state = Game.STATE.Game;
-
+		if (state == STATE.Game) {
+			mouseControl = false;
+			left = false;
+			down = false;
+			up = false;
+			right = false;
 		}
-		if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 250 && my <= 300) {
-			// pressed help button
-			Game.state = Game.STATE.Help;
 
-		}
-		if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 350 && my <= 400) {
-			System.exit(1);
+		if (state == STATE.Menu) {
+			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 150 && my <= 200) {
+				// pressed playbutton
+				Game.state = Game.STATE.Game;
 
+			}
+			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 250 && my <= 300) {
+				// pressed help button
+				Game.state = Game.STATE.Help;
+
+			}
+			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 350 && my <= 400) {
+				System.exit(1);
+
+			}
 		}
+
 	}
 
 }
