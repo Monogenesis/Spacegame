@@ -11,6 +11,8 @@ public class Enemy implements Entity {
 	private Textures tex;
 
 	private Animation anima;
+	private int scoreValue = 15;
+	private int speed = 2;
 
 	public Enemy(double x, double y, Textures tex) {
 		this.x = x;
@@ -22,7 +24,7 @@ public class Enemy implements Entity {
 
 	public void tick() {
 
-		x -= 2;
+		x -= speed;
 		if (x < -32)
 			x = 640;
 
@@ -35,8 +37,9 @@ public class Enemy implements Entity {
 
 	}
 
-	public void destroySelf() {
-
+	public void destroySelf(Entity reason) {
+		if (reason instanceof Bullet)
+			Player.score += scoreValue;
 	}
 
 	public double getY() {
@@ -57,6 +60,14 @@ public class Enemy implements Entity {
 
 	public Rectangle getbounds() {
 		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
+	}
+
+	public int getSpeed() {
+		return this.speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
 }

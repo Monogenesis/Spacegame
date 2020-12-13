@@ -1,14 +1,10 @@
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Controller {
 
   public static LinkedList<Entity> e = new LinkedList<Entity>();
-
-  private ArrayList<Enemy> wave1 = new ArrayList<>();
-  private ArrayList<Enemy> wave2 = new ArrayList<>();
-
+  public static int time;
   private Entity entity;
 
   private Game game;
@@ -35,7 +31,9 @@ public class Controller {
       }
       case 2: {
         for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 64) {
-          addEntity(new Enemy(640, i, tex));
+          Enemy enemy = new Enemy(640, i, tex);
+          enemy.setSpeed(4);
+          addEntity(enemy);
         }
         break;
       }
@@ -49,6 +47,7 @@ public class Controller {
   }
 
   public void restartlevel() {
+    levelCounter = 0;
     e.clear();
   }
 
@@ -97,6 +96,10 @@ public class Controller {
   public void removeEntity(Entity block) {
     e.remove(block);
 
+  }
+
+  public int getLevelCounter() {
+    return this.levelCounter;
   }
 
 }

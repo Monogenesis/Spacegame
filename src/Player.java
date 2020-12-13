@@ -21,6 +21,7 @@ public class Player extends Projectile implements Entity {
 	private Animation anima;
 	Controller controller;
 	private int health = 3;
+	public static int score = 0;
 
 	public Player(double x, double y, Textures tex) {
 		this.x = x;
@@ -59,7 +60,7 @@ public class Player extends Projectile implements Entity {
 				Enemy tempEnemy = (Enemy) Controller.e.get(i);
 				if (collision(getbounds(), Controller.e.get(i).getbounds())) {
 					System.out.println(collision(getbounds(), Controller.e.get(i).getbounds()));
-					tempEnemy.destroySelf();
+					tempEnemy.destroySelf(this);
 					Controller.e.remove(tempEnemy);
 					loseHealth();
 				}
@@ -79,6 +80,7 @@ public class Player extends Projectile implements Entity {
 	}
 
 	private void resetPlayer() {
+		score = 0;
 		x = startXPos;
 		y = startYPos;
 		health = 3;

@@ -32,7 +32,7 @@ public class Bullet extends Projectile implements Entity {
 				Enemy tempEnemy = (Enemy) Controller.e.get(i);
 				if (collision(getbounds(), Controller.e.get(i).getbounds())) {
 					System.out.println(collision(getbounds(), Controller.e.get(i).getbounds()));
-					tempEnemy.destroySelf();
+					tempEnemy.destroySelf(this);
 					Controller.e.remove(tempEnemy);
 					Controller.e.remove(this);
 				}

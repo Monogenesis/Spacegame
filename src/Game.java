@@ -26,7 +26,6 @@ public class Game extends Canvas implements Runnable {
 	public static final String TITLE = "Space Game";
 
 	private Boolean running = false;
-	private Boolean mouseControl = false;
 	private Thread thread;
 
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -116,6 +115,7 @@ public class Game extends Canvas implements Runnable {
 				System.out.println(updates + " Ticks, Fps " + frames);
 				updates = 0;
 				frames = 0;
+				Controller.time++;
 			}
 
 			try {
@@ -174,6 +174,13 @@ public class Game extends Canvas implements Runnable {
 
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		g.drawImage(menuBackground, 0, 0, getWidth(), getHeight(), this);
+
+		if (state == STATE.Game) {
+			g.setColor(Color.white);
+			g.drawString("score: " + Player.score, 20, 40);
+			g.drawString("level: " + c.getLevelCounter(), 20, 15);
+			g.drawString("time: " + Controller.time, 70, 15);
+		}
 
 		if (state == STATE.Game) {
 			p.render(g);
@@ -291,20 +298,12 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		mouseControl = true;
 
 	}
 
 	public void mouseReleased(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		if (state == STATE.Game) {
-			mouseControl = false;
-			left = false;
-			down = false;
-			up = false;
-			right = false;
-		}
 
 		if (state == STATE.Menu) {
 			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 150 && my <= 200) {
