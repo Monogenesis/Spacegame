@@ -1,4 +1,5 @@
-import java.awt.Graphics;
+package Entities;
+
 import java.awt.Rectangle;
 
 public class Projectile {

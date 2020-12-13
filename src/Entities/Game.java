@@ -1,19 +1,20 @@
 
+package Entities;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
+import Screens.Menu;
+import Screens.ScoreScreen;
 
 import java.awt.event.MouseEvent;
 
@@ -39,9 +40,10 @@ public class Game extends Canvas implements Runnable {
 	private Textures tex;
 
 	private Menu menu;
+	private ScoreScreen scoreScreen;
 
 	public static enum STATE {
-		Game, Menu, Help
+		Game, Menu, Help, Score
 	}
 
 	public static STATE state = STATE.Menu;
@@ -52,8 +54,8 @@ public class Game extends Canvas implements Runnable {
 		BufferedImageLoader loader = new BufferedImageLoader();
 
 		try {
-			spriteSheet = loader.loadImage("/SpriteSheet.png");
-			menuBackground = loader.loadImage("/menuBackground.png");
+			spriteSheet = loader.loadImage("/resources/SpriteSheet.png");
+			menuBackground = loader.loadImage("/resources/menuBackground.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -64,6 +66,7 @@ public class Game extends Canvas implements Runnable {
 		c = new Controller(this, tex);
 		p.setController(c);
 		menu = new Menu(0, 0, tex);
+		scoreScreen = new ScoreScreen();
 	}
 
 	private synchronized void start() {
@@ -186,9 +189,9 @@ public class Game extends Canvas implements Runnable {
 			p.render(g);
 			c.render(g);
 		} else if (state == STATE.Menu) {
-
 			menu.render(g);
-
+		} else if (state == STATE.Score) {
+			scoreScreen.render(g);
 		}
 		////////////////
 
@@ -205,7 +208,7 @@ public class Game extends Canvas implements Runnable {
 		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
-		JFrame frame = new JFrame(game.TITLE);
+		JFrame frame = new JFrame(Game.TITLE);
 		frame.add(game);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -309,16 +312,22 @@ public class Game extends Canvas implements Runnable {
 			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 150 && my <= 200) {
 				// pressed playbutton
 				Game.state = Game.STATE.Game;
-
+				Controller.time = 0;
 			}
 			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 250 && my <= 300) {
 				// pressed help button
 				Game.state = Game.STATE.Help;
-
 			}
 			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 350 && my <= 400) {
 				System.exit(1);
-
+			}
+		} else if (state == STATE.Score) {
+			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 280 && my >= 150 && my <= 200) {
+				// pressed playbutton
+				left = right = up = down = false;
+				Game.state = Game.STATE.Game;
+				Controller.time = 0;
+				Player.score = 0;
 			}
 		}
 

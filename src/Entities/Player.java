@@ -1,6 +1,7 @@
+package Entities;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 public class Player extends Projectile implements Entity {
 
@@ -80,7 +81,6 @@ public class Player extends Projectile implements Entity {
 	}
 
 	private void resetPlayer() {
-		score = 0;
 		x = startXPos;
 		y = startYPos;
 		health = 3;

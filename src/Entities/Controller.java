@@ -1,5 +1,9 @@
+package Entities;
+
 import java.awt.Graphics;
 import java.util.LinkedList;
+
+import Entities.Game.STATE;
 
 public class Controller {
 
@@ -15,9 +19,7 @@ public class Controller {
   public Controller(Game game, Textures tex) {
     this.game = game;
     this.tex = tex;
-
     loadLevel(1);
-
   }
 
   public void loadLevel(int wave) {
@@ -47,6 +49,8 @@ public class Controller {
   }
 
   public void restartlevel() {
+    Game.state = STATE.Score;
+    time = 0;
     levelCounter = 0;
     e.clear();
   }
