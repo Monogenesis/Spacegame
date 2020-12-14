@@ -21,7 +21,7 @@ public class Enemy implements Entity {
 		this.y = y;
 		this.tex = tex;
 
-		anima = new Animation(4, tex.enemy[0], tex.enemy[1], tex.enemy[2]);
+		anima = new Animation(4, tex.enemy);
 	}
 
 	public void tick() {
@@ -36,7 +36,6 @@ public class Enemy implements Entity {
 
 	public void render(Graphics g) {
 		anima.drawAnimation(g, x, y, 0);
-
 	}
 
 	public void destroySelf(Entity reason) {

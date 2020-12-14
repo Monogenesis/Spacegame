@@ -29,7 +29,7 @@ public class Player extends Projectile implements Entity {
 		this.y = y;
 		this.tex = tex;
 
-		anima = new Animation(4, tex.player[0], tex.player[1], tex.player[2]);
+		anima = new Animation(4, tex.player);
 
 	}
 

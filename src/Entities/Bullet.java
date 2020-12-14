@@ -21,7 +21,7 @@ public class Bullet extends Projectile implements Entity {
 		this.y = y;
 		this.tex = tex;
 
-		anima = new Animation(30, tex.bullet[0], tex.bullet[1], tex.bullet[2]);
+		anima = new Animation(15, tex.bullet);
 	}
 
 	public void tick() {
