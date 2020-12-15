@@ -1,5 +1,5 @@
 
-package Entities;
+package java.animation;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

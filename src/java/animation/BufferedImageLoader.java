@@ -1,4 +1,4 @@
-package Entities;
+package java.animation;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

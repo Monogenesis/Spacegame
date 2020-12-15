@@ -1,5 +1,6 @@
-package Entities;
+package java.controller;
 
+import java.Game;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 

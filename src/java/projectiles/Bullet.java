@@ -1,8 +1,13 @@
-package Entities;
+package java.projectiles;
 
+import java.animation.Animation;
+import java.animation.Textures;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.controller.Controller;
+import java.entities.Enemy;
+import java.entities.Entity;
 
 public class Bullet extends Projectile implements Entity {
 

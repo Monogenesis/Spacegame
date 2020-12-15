@@ -1,7 +1,10 @@
-package Entities;
+package java.entities;
 
+import java.animation.Animation;
+import java.animation.Textures;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.projectiles.Bullet;
 
 public class Enemy implements Entity {
 

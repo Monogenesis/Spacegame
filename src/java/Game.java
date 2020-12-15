@@ -1,6 +1,8 @@
 
-package Entities;
+package java;
 
+import java.animation.BufferedImageLoader;
+import java.animation.Textures;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,12 +11,17 @@ import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.controller.Controller;
+import java.controller.KeyInput;
+import java.controller.MouseInput;
+import java.entities.Player;
 import java.io.IOException;
+import java.projectiles.Bullet;
 
 import javax.swing.JFrame;
 
-import Screens.Menu;
-import Screens.ScoreScreen;
+import screens.Menu;
+import screens.ScoreScreen;
 
 import java.awt.event.MouseEvent;
 
@@ -305,24 +312,22 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		int mx = e.getX();
-		int my = e.getY();
 
 		if (state == STATE.Menu) {
-			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 150 && my <= 200) {
+			if (menu.playButton.contains(e.getPoint())) {
 				// pressed playbutton
+				left = right = up = down = false;
 				Game.state = Game.STATE.Game;
 				Controller.time = 0;
-			}
-			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 250 && my <= 300) {
+			} else if (menu.helpButton.contains(e.getPoint())) {
 				// pressed help button
+				left = right = up = down = false;
 				Game.state = Game.STATE.Help;
-			}
-			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 220 && my >= 350 && my <= 400) {
+			} else if (menu.quitButton.contains(e.getPoint())) {
 				System.exit(1);
 			}
 		} else if (state == STATE.Score) {
-			if (mx >= Game.WIDTH / 2 + 120 && mx <= Game.WIDTH / 2 + 280 && my >= 150 && my <= 200) {
+			if (scoreScreen.restartButton.contains(e.getPoint())) {
 				// pressed playbutton
 				left = right = up = down = false;
 				Game.state = Game.STATE.Game;

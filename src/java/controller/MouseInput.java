@@ -1,5 +1,6 @@
-package Entities;
+package java.controller;
 
+import java.Game;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;

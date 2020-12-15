@@ -1,7 +1,11 @@
-package Entities;
+package java.entities;
 
+import java.animation.Animation;
+import java.animation.Textures;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.controller.Controller;
+import java.projectiles.Projectile;
 
 public class Player extends Projectile implements Entity {
 

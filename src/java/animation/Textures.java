@@ -1,5 +1,6 @@
-package Entities;
+package java.animation;
 
+import java.Game;
 import java.awt.image.BufferedImage;
 
 public class Textures {

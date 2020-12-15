@@ -1,14 +1,14 @@
-package Screens;
+package screens;
 
+import java.Game;
+import java.animation.Textures;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import Entities.MouseInput;
-import Entities.Textures;
-import Entities.Entity;
-import Entities.Game;
+import java.controller.MouseInput;
+import java.entities.Entity;
 
 public class Menu implements Entity {
 
@@ -47,7 +47,6 @@ public class Menu implements Entity {
 		g.drawString("PLAY", playButton.x + 12, playButton.y + 35);
 		g.drawString("HELP", helpButton.x + 12, helpButton.y + 35);
 		g.drawString("QUIT", quitButton.x + 12, quitButton.y + 35);
-
 	}
 
 	public void tick() {

@@ -1,9 +1,12 @@
-package Entities;
+package java.controller;
 
+import java.Game;
+import java.Game.STATE;
+import java.animation.Textures;
 import java.awt.Graphics;
+import java.entities.Enemy;
+import java.entities.Entity;
 import java.util.LinkedList;
-
-import Entities.Game.STATE;
 
 public class Controller {
 
