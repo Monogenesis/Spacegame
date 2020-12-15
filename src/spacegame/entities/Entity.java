@@ -1,4 +1,4 @@
-package java.entities;
+package spacegame.entities;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

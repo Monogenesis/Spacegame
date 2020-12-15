@@ -1,8 +1,9 @@
-package java.controller;
+package spacegame.controller;
 
-import java.Game;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import spacegame.Game;
 
 public class KeyInput extends KeyAdapter {
 

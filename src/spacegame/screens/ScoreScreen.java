@@ -1,11 +1,13 @@
-package screens;
+package spacegame.screens;
 
 import java.awt.Graphics2D;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.entities.Entity;
-import java.entities.Player;
-import java.Game;
+
+import spacegame.Game;
+import spacegame.entities.Entity;
+import spacegame.entities.Player;
+
 import java.awt.Color;
 import java.awt.Font;
 

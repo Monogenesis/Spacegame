@@ -1,14 +1,15 @@
-package screens;
+package spacegame.screens;
 
-import java.Game;
-import java.animation.Textures;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.controller.MouseInput;
-import java.entities.Entity;
+
+import spacegame.Game;
+import spacegame.animation.Textures;
+import spacegame.controller.MouseInput;
+import spacegame.entities.Entity;
 
 public class Menu implements Entity {
 

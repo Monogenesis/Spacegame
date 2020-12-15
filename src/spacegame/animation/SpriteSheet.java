@@ -1,4 +1,4 @@
-package java.animation;
+package spacegame.animation;
 
 import java.awt.image.BufferedImage;
 

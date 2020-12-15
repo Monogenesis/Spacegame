@@ -1,4 +1,4 @@
-package java.projectiles;
+package spacegame.projectiles;
 
 import java.awt.Rectangle;
 

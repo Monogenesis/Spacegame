@@ -1,10 +1,11 @@
-package java.controller;
+package spacegame.controller;
 
-import java.Game;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import spacegame.Game;
 
 public class MouseInput implements MouseListener {
 	Game game;

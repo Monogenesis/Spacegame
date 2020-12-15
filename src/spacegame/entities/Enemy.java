@@ -1,10 +1,11 @@
-package java.entities;
+package spacegame.entities;
 
-import java.animation.Animation;
-import java.animation.Textures;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.projectiles.Bullet;
+
+import spacegame.animation.Animation;
+import spacegame.animation.Textures;
+import spacegame.projectiles.Bullet;
 
 public class Enemy implements Entity {
 

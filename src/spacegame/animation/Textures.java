@@ -1,7 +1,8 @@
-package java.animation;
+package spacegame.animation;
 
-import java.Game;
 import java.awt.image.BufferedImage;
+
+import spacegame.Game;
 
 public class Textures {
 

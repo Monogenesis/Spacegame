@@ -1,8 +1,6 @@
 
-package java;
+package spacegame;
 
-import java.animation.BufferedImageLoader;
-import java.animation.Textures;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,17 +9,19 @@ import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.controller.Controller;
-import java.controller.KeyInput;
-import java.controller.MouseInput;
-import java.entities.Player;
 import java.io.IOException;
-import java.projectiles.Bullet;
 
 import javax.swing.JFrame;
 
-import screens.Menu;
-import screens.ScoreScreen;
+import spacegame.animation.BufferedImageLoader;
+import spacegame.animation.Textures;
+import spacegame.controller.Controller;
+import spacegame.controller.KeyInput;
+import spacegame.controller.MouseInput;
+import spacegame.entities.Player;
+import spacegame.projectiles.Bullet;
+import spacegame.screens.Menu;
+import spacegame.screens.ScoreScreen;
 
 import java.awt.event.MouseEvent;
 

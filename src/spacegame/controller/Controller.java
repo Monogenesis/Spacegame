@@ -1,12 +1,13 @@
-package java.controller;
+package spacegame.controller;
 
-import java.Game;
-import java.Game.STATE;
-import java.animation.Textures;
 import java.awt.Graphics;
-import java.entities.Enemy;
-import java.entities.Entity;
 import java.util.LinkedList;
+
+import spacegame.Game;
+import spacegame.Game.STATE;
+import spacegame.animation.Textures;
+import spacegame.entities.Enemy;
+import spacegame.entities.Entity;
 
 public class Controller {
 
