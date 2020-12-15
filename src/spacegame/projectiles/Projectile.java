@@ -6,7 +6,7 @@ public class Projectile {
 
 	private double x, y;
 
-	public Boolean collision(Rectangle a, Rectangle b) {
+	public static Boolean collision(Rectangle a, Rectangle b) {
 
 		return a.intersects(b);
 	}

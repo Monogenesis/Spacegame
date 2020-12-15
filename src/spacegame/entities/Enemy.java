@@ -9,33 +9,30 @@ import spacegame.projectiles.Bullet;
 
 public class Enemy implements Entity {
 
-	private double x, y;
+	protected double x, y;
 
 	private static int BOUNDWIDTH = 26;
 	private static int BOUNDHEIGHT = 18;
 
-	private Textures tex;
+	protected Animation anima;
+	protected int scoreValue = 15;
+	protected int speed = 2;
 
-	private Animation anima;
-	private int scoreValue = 15;
-	private int speed = 2;
+	public Enemy() {
+	};
 
-	public Enemy(double x, double y, Textures tex) {
+	public Enemy(double x, double y, int speed, Textures tex) {
 		this.x = x;
 		this.y = y;
-		this.tex = tex;
-
+		this.speed = speed;
 		anima = new Animation(4, tex.enemy);
 	}
 
 	public void tick() {
-
 		x -= speed;
 		if (x < -32)
 			x = 640;
-
 		anima.runAnimation();
-
 	}
 
 	public void render(Graphics g) {

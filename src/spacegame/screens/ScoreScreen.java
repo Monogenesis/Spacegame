@@ -13,6 +13,7 @@ import java.awt.Font;
 
 public class ScoreScreen implements Entity {
     private double x, y;
+
     public Rectangle restartButton = new Rectangle((Game.WIDTH / 2) + 80, 350, 160, 50);
     private Font fnt0 = new Font("arial", Font.BOLD, 50);
     private Font fnt1 = new Font("arial", Font.BOLD, 30);

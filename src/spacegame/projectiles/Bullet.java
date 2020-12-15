@@ -2,7 +2,6 @@ package spacegame.projectiles;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
@@ -18,16 +17,12 @@ public class Bullet extends Projectile implements Entity {
 	private static int BOUNDWIDTH = 15;
 	private static int BOUNDHEIGHT = 5;
 
-	private Textures tex;
-
 	private Animation anima;
 
 	public Bullet(double x, double y, Textures tex) {
 		this.x = x;
 		this.y = y;
-		this.tex = tex;
-
-		anima = new Animation(15, tex.bullet);
+		anima = new Animation(5, tex.bullet);
 	}
 
 	public void tick() {

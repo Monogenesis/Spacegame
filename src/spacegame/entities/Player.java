@@ -8,7 +8,7 @@ import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.projectiles.Projectile;
 
-public class Player extends Projectile implements Entity {
+public class Player implements Entity {
 
 	private double x;
 	private double y;
@@ -64,14 +64,13 @@ public class Player extends Projectile implements Entity {
 
 			if (Controller.e.get(i) instanceof Enemy) {
 				Enemy tempEnemy = (Enemy) Controller.e.get(i);
-				if (collision(getbounds(), Controller.e.get(i).getbounds())) {
-					System.out.println(collision(getbounds(), Controller.e.get(i).getbounds()));
+				if (Projectile.collision(getbounds(), Controller.e.get(i).getbounds())) {
+					System.out.println(Projectile.collision(getbounds(), Controller.e.get(i).getbounds()));
 					tempEnemy.destroySelf(this);
 					Controller.e.remove(tempEnemy);
 					loseHealth();
 				}
 			}
-
 		}
 
 		anima.runAnimation();
