@@ -27,15 +27,22 @@ public class Player implements Entity {
 	private Animation anima;
 	Controller controller;
 	private int health = 3;
+	private int ammunitionCount = 40;
 	public static int score = 0;
 
 	public Player(double x, double y, Textures tex) {
 		this.x = x;
 		this.y = y;
 		this.tex = tex;
-
+		init();
 		anima = new Animation(4, tex.player);
+	}
 
+	private void init() {
+		x = startXPos;
+		y = startYPos;
+		ammunitionCount = 40;
+		health = 3;
 	}
 
 	public Controller getController() {
@@ -61,20 +68,21 @@ public class Player implements Entity {
 			y = 480 - 32;
 
 		for (int i = 0; i < Controller.e.size(); i++) {
-
-			if (Controller.e.get(i) instanceof Enemy) {
-				Enemy tempEnemy = (Enemy) Controller.e.get(i);
-				if (Projectile.collision(getbounds(), Controller.e.get(i).getbounds())) {
-					System.out.println(Projectile.collision(getbounds(), Controller.e.get(i).getbounds()));
+			if (Projectile.collision(getbounds(), Controller.e.get(i).getbounds())) {
+				if (Controller.e.get(i) instanceof Enemy) {
+					Enemy tempEnemy = (Enemy) Controller.e.get(i);
 					tempEnemy.destroySelf(this);
 					Controller.e.remove(tempEnemy);
 					loseHealth();
+				} else if (Controller.e.get(i) instanceof AmmunitionDrop) {
+					AmmunitionDrop tmpAmmunitionDrop = (AmmunitionDrop) Controller.e.get(i);
+					ammunitionCount += tmpAmmunitionDrop.getAmmunitionValue();
+					tmpAmmunitionDrop.destroySelf(this);
+					Controller.e.remove(tmpAmmunitionDrop);
 				}
 			}
 		}
-
 		anima.runAnimation();
-
 	}
 
 	public void loseHealth() {
@@ -85,9 +93,7 @@ public class Player implements Entity {
 	}
 
 	private void resetPlayer() {
-		x = startXPos;
-		y = startYPos;
-		health = 3;
+		init();
 		controller.restartlevel();
 	}
 

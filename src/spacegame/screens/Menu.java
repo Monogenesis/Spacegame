@@ -8,7 +8,6 @@ import java.awt.Rectangle;
 
 import spacegame.Game;
 import spacegame.animation.Textures;
-import spacegame.controller.MouseInput;
 import spacegame.entities.Entity;
 
 public class Menu implements Entity {

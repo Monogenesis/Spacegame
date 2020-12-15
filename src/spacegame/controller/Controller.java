@@ -8,6 +8,7 @@ import spacegame.Game.STATE;
 import spacegame.animation.Textures;
 import spacegame.entities.AmmunitionDrop;
 import spacegame.entities.Enemy;
+import spacegame.entities.GameObject;
 import spacegame.entities.Entity;
 
 public class Controller {
@@ -39,14 +40,14 @@ public class Controller {
       }
       case 2: {
         for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 64) {
-          Enemy enemy = new Enemy(640, i, 4, tex);
+          Enemy enemy = new Enemy(640, i, 3, tex);
           addEntity(enemy);
         }
         break;
       }
       default: {
         for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 96) {
-          addEntity(new Enemy(640, i, 1, tex));
+          addEntity(new Enemy(640, i, 4, tex));
         }
       }
     }

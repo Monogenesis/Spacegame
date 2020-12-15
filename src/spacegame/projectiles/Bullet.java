@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
+import spacegame.entities.GameObject;
 import spacegame.entities.Enemy;
 import spacegame.entities.Entity;
 

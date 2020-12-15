@@ -253,6 +253,11 @@ public class Game extends Canvas implements Runnable {
 
 		}
 
+		if (state == STATE.Menu && key == KeyEvent.VK_SPACE) {
+			left = right = up = down = false;
+			Game.state = Game.STATE.Game;
+		}
+
 		if (key == KeyEvent.VK_ESCAPE)
 			state = STATE.Menu;
 
