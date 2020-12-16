@@ -98,9 +98,7 @@ public class Player implements Entity {
 	}
 
 	public void render(Graphics g) {
-
 		anima.drawAnimation(g, x, y, 0);
-
 		if (health == 3)
 			g.drawImage(tex.health3, 20, 20, null);
 		else if (health == 2)
@@ -136,6 +134,14 @@ public class Player implements Entity {
 
 	public void setY(double y) {
 		this.y = y;
+	}
+
+	public int getAmmunitionCount() {
+		return this.ammunitionCount;
+	}
+
+	public void setAmmunitionCount(int ammunitionCount) {
+		this.ammunitionCount = ammunitionCount;
 	}
 
 	@Override

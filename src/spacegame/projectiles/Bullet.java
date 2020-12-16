@@ -7,6 +7,7 @@ import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.entities.GameObject;
+import spacegame.entities.Player;
 import spacegame.entities.Enemy;
 import spacegame.entities.Entity;
 
@@ -15,23 +16,35 @@ public class Bullet extends Projectile implements Entity {
 	private double x;
 	private double y;
 
+	private double currentSpeed = 0;
+	private double maxSpeed = 10;
+	private double velocity = 0.1;
+
 	private static int BOUNDWIDTH = 15;
 	private static int BOUNDHEIGHT = 5;
 
 	private Animation anima;
+	private Player player;
 
-	public Bullet(double x, double y, Textures tex) {
+	public Bullet(double x, double y, Textures tex, Player player) {
 		this.x = x;
 		this.y = y;
+		this.player = player;
 		anima = new Animation(5, tex.bullet);
 	}
 
-	public void tick() {
+	public Bullet shoot() {
+		player.setAmmunitionCount(player.getAmmunitionCount() - 1);
+		return this;
+	}
 
-		x += 10;
+	public void tick() {
+		if (currentSpeed < maxSpeed) {
+			currentSpeed += velocity;
+		}
+		x += currentSpeed;
 		anima.runAnimation();
 		for (int i = 0; i < Controller.e.size(); i++) {
-
 			if (Controller.e.get(i) instanceof Enemy) {
 				Enemy tempEnemy = (Enemy) Controller.e.get(i);
 				if (collision(getbounds(), Controller.e.get(i).getbounds())) {

@@ -30,15 +30,23 @@ public class Controller {
 
   public void loadLevel(int wave) {
     System.out.println("Loading level " + wave);
+
     switch (wave) {
       case 1: {
         for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 96) {
-          // addEntity(new Enemy(640, i, tex));
-          addEntity(new AmmunitionDrop(640, i, 1, tex));
+          Enemy enemy = new Enemy(640, i, 1, tex);
+          addEntity(enemy);
         }
         break;
       }
       case 2: {
+        for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 64) {
+          Enemy enemy = new Enemy(640, i, 2, tex);
+          addEntity(enemy);
+        }
+        break;
+      }
+      case 3: {
         for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 64) {
           Enemy enemy = new Enemy(640, i, 3, tex);
           addEntity(enemy);
@@ -61,7 +69,15 @@ public class Controller {
     e.clear();
   }
 
+  public void updateTime() {
+    time++;
+    if ((time + 1) % 5 == 0) {
+      addEntity(new AmmunitionDrop(640, Math.random() * (Game.HEIGHT + 30), 1, tex));
+    }
+  }
+
   public void tick() {
+
     boolean allEnemiesGone = true;
     for (Entity entity : e) {
       if (entity instanceof Enemy) {
@@ -74,7 +90,7 @@ public class Controller {
 
     for (int i = 0; i < e.size(); i++) {
       if (entity != null) {
-        if (entity.getX() > 640 || entity.getY() > 480) {
+        if (entity.getX() > 740 || entity.getY() > 480) {
           removeEntity(entity);
         } else {
           entity = e.get(i);
