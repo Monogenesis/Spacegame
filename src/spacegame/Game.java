@@ -190,7 +190,7 @@ public class Game extends Canvas implements Runnable {
 			g.drawString("score: " + Player.score, 20, 40);
 			g.drawString("level: " + c.getLevelCounter(), 20, 15);
 			g.drawString("time: " + Controller.time, 70, 15);
-			g.drawString("ammo: " + p.getAmmunitionCount(), 70, 40);
+			g.drawString("ammo: " + p.getAmmunitionCount(), 20, 60);
 		}
 
 		if (state == STATE.Game) {
@@ -249,7 +249,7 @@ public class Game extends Canvas implements Runnable {
 				up = true;
 			} else if (key == KeyEvent.VK_SPACE && !isShooting) {
 				isShooting = true;
-				c.addEntity(new Bullet(p.getX(), p.getY() + 13, tex, p).shoot());
+				p.shoot();
 			}
 
 		}

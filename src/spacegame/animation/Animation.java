@@ -61,4 +61,12 @@ public class Animation {
 		this.speed = speed;
 	}
 
+	public ArrayList<BufferedImage> getImages() {
+		return this.images;
+	}
+
+	public void setImages(ArrayList<BufferedImage> images) {
+		this.images = images;
+	}
+
 }

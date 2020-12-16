@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
+import spacegame.projectiles.Bullet;
 import spacegame.projectiles.Projectile;
 
 public class Player implements Entity {
@@ -36,6 +37,14 @@ public class Player implements Entity {
 		this.tex = tex;
 		init();
 		anima = new Animation(4, tex.player);
+	}
+
+	public void shoot() {
+		if (ammunitionCount > 0) {
+			ammunitionCount--;
+			controller.addEntity(new Bullet(getX(), getY() + 13, tex, this));
+		}
+
 	}
 
 	private void init() {

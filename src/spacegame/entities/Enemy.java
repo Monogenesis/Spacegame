@@ -1,10 +1,11 @@
 package spacegame.entities;
 
+import java.awt.Graphics;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 
 public class Enemy extends GameObject {
-    private boolean movingRight = true;
+    private boolean movingFromRight = true;
 
     public Enemy(double x, double y, int speed, Textures tex) {
         super(x, y, speed, tex);
@@ -13,17 +14,22 @@ public class Enemy extends GameObject {
 
     @Override
     public void tick() {
-        if (movingRight) {
+        if (movingFromRight) {
             x -= speed;
         } else {
             x += speed;
         }
         if (x < -32) {
-            movingRight = false;
+            movingFromRight = false;
         } else if (x > 640) {
-            movingRight = true;
+            movingFromRight = true;
         }
 
         anima.runAnimation();
+    }
+
+    @Override
+    public void render(Graphics g) {
+        anima.drawAnimation(g, x, y, 0);
     }
 }
