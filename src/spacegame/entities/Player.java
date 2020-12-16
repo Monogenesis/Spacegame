@@ -81,7 +81,6 @@ public class Player implements Entity {
 				if (Controller.e.get(i) instanceof Enemy) {
 					Enemy tempEnemy = (Enemy) Controller.e.get(i);
 					tempEnemy.destroySelf(this);
-					Controller.e.remove(tempEnemy);
 					loseHealth();
 				} else if (Controller.e.get(i) instanceof AmmunitionDrop) {
 					AmmunitionDrop tmpAmmunitionDrop = (AmmunitionDrop) Controller.e.get(i);
@@ -107,7 +106,7 @@ public class Player implements Entity {
 	}
 
 	public void render(Graphics g) {
-		anima.drawAnimation(g, x, y, 0);
+		anima.drawAnimation(g, x, y);
 		if (health == 3)
 			g.drawImage(tex.health3, 20, 20, null);
 		else if (health == 2)

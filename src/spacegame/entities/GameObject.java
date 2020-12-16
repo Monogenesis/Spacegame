@@ -32,7 +32,7 @@ public class GameObject implements Entity {
 	}
 
 	public void render(Graphics g) {
-		anima.drawAnimation(g, x, y, 0);
+		anima.drawAnimation(g, x, y);
 	}
 
 	public void destroySelf(Entity reason) {

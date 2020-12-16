@@ -11,6 +11,7 @@ public class Textures {
 
 	public BufferedImage[] player = new BufferedImage[3];
 	public BufferedImage[] enemy = new BufferedImage[3];
+	public BufferedImage[] enemyDestroy = new BufferedImage[8];
 	public BufferedImage[] bullet = new BufferedImage[3];
 	public BufferedImage[] ammunition = new BufferedImage[7];
 
@@ -23,26 +24,21 @@ public class Textures {
 		getTextures();
 	}
 
+	private BufferedImage[] loadImages(int col, int frameCount) {
+		BufferedImage[] result = new BufferedImage[frameCount];
+		for (int i = 0; i < frameCount; i++) {
+			result[i] = ss.grabImage(col, i + 1, TILESIZE, TILESIZE);
+		}
+		return result;
+	}
+
 	private void getTextures() {
-		player[0] = ss.grabImage(1, 1, TILESIZE, TILESIZE);
-		player[1] = ss.grabImage(1, 2, TILESIZE, TILESIZE);
-		player[2] = ss.grabImage(1, 3, TILESIZE, TILESIZE);
+		player = loadImages(1, 3);
+		bullet = loadImages(2, 3);
 
-		bullet[0] = ss.grabImage(2, 1, TILESIZE, TILESIZE);
-		bullet[1] = ss.grabImage(2, 2, TILESIZE, TILESIZE);
-		bullet[2] = ss.grabImage(2, 3, TILESIZE, TILESIZE);
-
-		enemy[0] = ss.grabImage(3, 1, TILESIZE, TILESIZE);
-		enemy[1] = ss.grabImage(3, 2, TILESIZE, TILESIZE);
-		enemy[2] = ss.grabImage(3, 3, TILESIZE, TILESIZE);
-
-		ammunition[0] = ss.grabImage(7, 1, TILESIZE, TILESIZE);
-		ammunition[1] = ss.grabImage(7, 2, TILESIZE, TILESIZE);
-		ammunition[2] = ss.grabImage(7, 3, TILESIZE, TILESIZE);
-		ammunition[3] = ss.grabImage(7, 4, TILESIZE, TILESIZE);
-		ammunition[4] = ss.grabImage(7, 5, TILESIZE, TILESIZE);
-		ammunition[5] = ss.grabImage(7, 6, TILESIZE, TILESIZE);
-		ammunition[6] = ss.grabImage(7, 7, TILESIZE, TILESIZE);
+		enemy = loadImages(3, 3);
+		enemyDestroy = loadImages(8, 8);
+		ammunition = loadImages(7, 7);
 
 		health3 = ss.grabImage(4, 1, TILESIZE, TILESIZE);
 		health2 = ss.grabImage(5, 1, TILESIZE, TILESIZE);

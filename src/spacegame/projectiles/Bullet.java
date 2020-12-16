@@ -50,7 +50,6 @@ public class Bullet extends Projectile implements Entity {
 				if (collision(getbounds(), Controller.e.get(i).getbounds())) {
 					System.out.println(collision(getbounds(), Controller.e.get(i).getbounds()));
 					tempEnemy.destroySelf(this);
-					Controller.e.remove(tempEnemy);
 					Controller.e.remove(this);
 				}
 			}
@@ -61,7 +60,7 @@ public class Bullet extends Projectile implements Entity {
 
 	public void render(Graphics g) {
 
-		anima.drawAnimation(g, x, y, 0);
+		anima.drawAnimation(g, x, y);
 
 	}
 

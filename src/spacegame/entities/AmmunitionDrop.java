@@ -11,6 +11,11 @@ public class AmmunitionDrop extends GameObject {
         anima = new Animation(7, tex.ammunition);
     }
 
+    @Override
+    public void destroySelf(Entity reason) {
+
+    }
+
     public int getAmmunitionValue() {
         System.out.printf("+ %s Ammunition%n", value);
         return this.value;

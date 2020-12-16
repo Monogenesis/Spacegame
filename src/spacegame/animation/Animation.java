@@ -41,8 +41,12 @@ public class Animation {
 		currentImg = images.get(count);
 	}
 
-	public void drawAnimation(Graphics g, double x, double y, int offset) {
-		g.drawImage(currentImg, (int) x - offset, (int) y, null);
+	public void drawAnimation(Graphics g, double x, double y, int offsetX, int offsetY) {
+		g.drawImage(currentImg, (int) x - offsetX, (int) y - offsetY, null);
+	}
+
+	public void drawAnimation(Graphics g, double x, double y) {
+		g.drawImage(currentImg, (int) x, (int) y, null);
 	}
 
 	public void setCount(int count) {
@@ -59,6 +63,10 @@ public class Animation {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	public int getFrames() {
+		return this.frames;
 	}
 
 	public ArrayList<BufferedImage> getImages() {
