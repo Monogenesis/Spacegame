@@ -73,7 +73,7 @@ public class Game extends Canvas implements Runnable {
 		c = new Controller(this, tex);
 		p.setController(c);
 		menu = new Menu(0, 0, c);
-		scoreScreen = new ScoreScreen();
+		scoreScreen = new ScoreScreen(c);
 	}
 
 	private synchronized void start() {
@@ -311,13 +311,15 @@ public class Game extends Canvas implements Runnable {
 				System.exit(1);
 			}
 		} else if (state == STATE.Score) {
-			if (scoreScreen.restartButton.contains(e.getPoint())) {
+			if (scoreScreen.restartButton.getBounds().contains(e.getPoint())) {
 				// pressed playbutton
 				left = right = up = down = false;
 				Game.state = Game.STATE.Game;
 				Controller.time = 0;
 				Player.score = 0;
 				c.running = true;
+			} else if (scoreScreen.mainMenuButton.getBounds().contains(e.getPoint())) {
+				Game.state = Game.STATE.Menu;
 			}
 		}
 

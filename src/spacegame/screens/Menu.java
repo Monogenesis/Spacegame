@@ -9,7 +9,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import spacegame.Game;
-import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.entities.Entity;
 
@@ -21,7 +20,7 @@ public class Menu implements Entity {
 	private static int BOUNDWIDTH = 15;
 	private static int BOUNDHEIGHT = 5;
 
-	private Font menuLabelFont = new Font("arial", Font.BOLD, 50);
+	public final static Font menuLabelFont = new Font("arial", Font.BOLD, 50);
 	public final static Font buttonFont = new Font("arial", Font.BOLD, 30);
 	public final static Color enabledColor = Color.WHITE;
 	public final static Color disabledColor = Color.GRAY;
@@ -41,7 +40,11 @@ public class Menu implements Entity {
 		helpButton = new MenuButton(0, 270, "HELP", true);
 		quitButton = new MenuButton(0, 330, "QUIT", true);
 
-		labelTextPos = (int) ((Game.WIDTH / 2) - (getTextBounds(menuLabelFont, labelText).getBounds().getWidth() / 2));
+		labelTextPos = getTextWorldCenterXPos(menuLabelFont, labelText);
+	}
+
+	public static int getTextWorldCenterXPos(Font font, String text) {
+		return (int) ((Game.WIDTH / 2) - (getTextBounds(font, text).getBounds().getWidth() / 2));
 	}
 
 	public static Rectangle2D getTextBounds(Font font, String text) {
@@ -52,7 +55,7 @@ public class Menu implements Entity {
 
 	public void render(Graphics g) {
 		g.setFont(menuLabelFont);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.yellow);
 		g.drawString(labelText, labelTextPos, 100);
 
 		continueButton.render(g);

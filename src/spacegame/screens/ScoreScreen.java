@@ -5,20 +5,30 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import spacegame.Game;
+import spacegame.controller.Controller;
 import spacegame.entities.Entity;
 import spacegame.entities.Player;
 
 import java.awt.Color;
-import java.awt.Font;
 
 public class ScoreScreen implements Entity {
     private double x, y;
 
-    public Rectangle restartButton = new Rectangle((Game.WIDTH / 2) + 80, 350, 160, 50);
-    private Font fnt0 = new Font("arial", Font.BOLD, 50);
-    private Font fnt1 = new Font("arial", Font.BOLD, 30);
+    public MenuButton restartButton;
+    public MenuButton mainMenuButton;
+    private int labelTextPos;
+    private String labelText = "SCORE";
     private static int BOUNDWIDTH = 15;
     private static int BOUNDHEIGHT = 5;
+
+    private Controller controller;
+
+    public ScoreScreen(Controller controller) {
+        this.controller = controller;
+        restartButton = new MenuButton(0, 350, "RESTART", true);
+        mainMenuButton = new MenuButton(0, 420, "MENU", true);
+        labelTextPos = Menu.getTextWorldCenterXPos(Menu.menuLabelFont, labelText);
+    }
 
     @Override
     public void tick() {
@@ -27,18 +37,14 @@ public class ScoreScreen implements Entity {
 
     @Override
     public void render(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-
-        g.setFont(fnt0);
+        g.setFont(Menu.menuLabelFont);
         g.setColor(Color.WHITE);
-        g.drawString("SCORE " + Player.score, (Game.WIDTH / 2) + 50, 100);
-
-        g.setFont(fnt1);
-
-        g2d.draw(restartButton);
-        g.setColor(Color.lightGray);
-
-        g.drawString("RESTART", restartButton.x + 12, restartButton.y + 35);
+        g.drawString(labelText, labelTextPos, 100);
+        g.setColor(Color.orange);
+        g.drawString(String.valueOf(Player.score),
+                Menu.getTextWorldCenterXPos(Menu.menuLabelFont, String.valueOf(Player.score)), 250);
+        restartButton.render(g);
+        mainMenuButton.render(g);
 
     }
 

@@ -63,6 +63,7 @@ public class Controller {
   }
 
   public void restartlevel() {
+    running = false;
     Game.state = STATE.Score;
     time = 0;
     levelCounter = 0;

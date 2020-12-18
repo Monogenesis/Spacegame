@@ -2,7 +2,7 @@ package spacegame.screens;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
+import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 import spacegame.Game;
@@ -38,13 +38,13 @@ public class MenuButton implements Entity {
 
     @Override
     public void render(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         g.setFont(Menu.buttonFont);
         if (enabled)
             g.setColor(Menu.enabledColor);
         else
             g.setColor(Menu.disabledColor);
-        g.drawRect((int) worldBounds.getBounds().getX() - 4, (int) worldBounds.getBounds().getY(),
-                (int) worldBounds.getBounds().getWidth() + 4, (int) worldBounds.getBounds().getHeight());
+        g2d.draw(worldBounds);
         g.drawString(text, (int) x, (int) y + textHeight);
 
     }
