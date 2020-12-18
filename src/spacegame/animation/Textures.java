@@ -10,10 +10,13 @@ public class Textures {
 	public BufferedImage health3, health2, health1;
 
 	public BufferedImage[] player = new BufferedImage[3];
-	public BufferedImage[] enemy = new BufferedImage[3];
-	public BufferedImage[] enemyDestroy = new BufferedImage[8];
+	public BufferedImage[] enemy1 = new BufferedImage[3];
+	public BufferedImage[] enemy1Destroy = new BufferedImage[8];
 	public BufferedImage[] bullet = new BufferedImage[3];
 	public BufferedImage[] ammunition = new BufferedImage[7];
+	public BufferedImage[] enemy2 = new BufferedImage[7];
+	public BufferedImage[] enemy2Destroy = new BufferedImage[12];
+	public BufferedImage[] enemy2Projectile = new BufferedImage[7];
 
 	private SpriteSheet ss = null;
 
@@ -36,9 +39,12 @@ public class Textures {
 		player = loadImages(1, 3);
 		bullet = loadImages(2, 3);
 
-		enemy = loadImages(3, 3);
-		enemyDestroy = loadImages(8, 8);
 		ammunition = loadImages(7, 7);
+		enemy1 = loadImages(3, 3);
+		enemy1Destroy = loadImages(8, 8);
+		enemy2 = loadImages(9, 7);
+		enemy2Destroy = loadImages(10, 12);
+		enemy2Projectile = loadImages(11, 7);
 
 		health3 = ss.grabImage(4, 1, TILESIZE, TILESIZE);
 		health2 = ss.grabImage(5, 1, TILESIZE, TILESIZE);

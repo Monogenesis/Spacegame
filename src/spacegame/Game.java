@@ -290,7 +290,6 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void keyReleased(KeyEvent e) {
-
 		int key = e.getKeyCode();
 
 		if (state == STATE.Game) {
