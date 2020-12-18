@@ -271,9 +271,22 @@ public class Game extends Canvas implements Runnable {
 			Game.state = Game.STATE.Game;
 		}
 
-		if (key == KeyEvent.VK_ESCAPE)
-			state = STATE.Menu;
-
+		if (key == KeyEvent.VK_ESCAPE) {
+			switch (state) {
+				case Menu: {
+					if (c.running)
+						state = STATE.Game;
+					break;
+				}
+				case Game:
+				case Help: {
+					state = STATE.Menu;
+				}
+				default:
+					state = STATE.Menu;
+					break;
+			}
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {

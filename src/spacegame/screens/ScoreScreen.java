@@ -1,10 +1,8 @@
 package spacegame.screens;
 
-import java.awt.Graphics2D;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import spacegame.Game;
 import spacegame.controller.Controller;
 import spacegame.entities.Entity;
 import spacegame.entities.Player;
@@ -45,7 +43,6 @@ public class ScoreScreen implements Entity {
                 Menu.getTextWorldCenterXPos(Menu.menuLabelFont, String.valueOf(Player.score)), 250);
         restartButton.render(g);
         mainMenuButton.render(g);
-
     }
 
     @Override
