@@ -8,12 +8,11 @@ import spacegame.Game.STATE;
 import spacegame.animation.Textures;
 import spacegame.entities.AmmunitionDrop;
 import spacegame.entities.Enemy;
-import spacegame.entities.GameObject;
 import spacegame.entities.Entity;
 
 public class Controller {
 
-  public static LinkedList<Entity> e = new LinkedList<Entity>();
+  public static LinkedList<Entity> entities = new LinkedList<Entity>();
   public static int time;
   private Entity entity;
 
@@ -21,6 +20,7 @@ public class Controller {
 
   private Textures tex;
   private int levelCounter = 1;
+  public boolean running;
 
   public Controller(Game game, Textures tex) {
     this.game = game;
@@ -66,7 +66,7 @@ public class Controller {
     Game.state = STATE.Score;
     time = 0;
     levelCounter = 0;
-    e.clear();
+    entities.clear();
   }
 
   public void updateTime() {
@@ -79,7 +79,7 @@ public class Controller {
   public void tick() {
 
     boolean allEnemiesGone = true;
-    for (Entity entity : e) {
+    for (Entity entity : entities) {
       if (entity instanceof Enemy) {
         allEnemiesGone = false;
       }
@@ -88,12 +88,12 @@ public class Controller {
       loadLevel(levelCounter++);
     }
 
-    for (int i = 0; i < e.size(); i++) {
+    for (int i = 0; i < entities.size(); i++) {
       if (entity != null) {
         if (entity.getX() > 740 || entity.getY() > 480) {
           removeEntity(entity);
         } else {
-          entity = e.get(i);
+          entity = entities.get(i);
           entity.tick();
         }
       }
@@ -106,21 +106,21 @@ public class Controller {
 
   public void render(Graphics g) {
 
-    for (int i = 0; i < e.size(); i++) {
+    for (int i = 0; i < entities.size(); i++) {
 
-      entity = e.get(i);
+      entity = entities.get(i);
       entity.render(g);
     }
 
   }
 
   public void addEntity(Entity block) {
-    e.add(block);
+    entities.add(block);
 
   }
 
   public void removeEntity(Entity block) {
-    e.remove(block);
+    entities.remove(block);
 
   }
 

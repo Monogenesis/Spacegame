@@ -56,7 +56,7 @@ public class GameObject implements Entity {
 		this.x = x;
 	}
 
-	public Rectangle getbounds() {
+	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
 	}
 

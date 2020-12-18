@@ -76,19 +76,21 @@ public class Player implements Entity {
 		if (y >= 480 - 32)
 			y = 480 - 32;
 
-		for (int i = 0; i < Controller.e.size(); i++) {
-			if (Projectile.collision(getbounds(), Controller.e.get(i).getbounds())) {
-				if (Controller.e.get(i) instanceof Enemy) {
-					Enemy tempEnemy = (Enemy) Controller.e.get(i);
-					tempEnemy.destroySelf(this);
-					loseHealth();
-				} else if (Controller.e.get(i) instanceof AmmunitionDrop) {
-					AmmunitionDrop tmpAmmunitionDrop = (AmmunitionDrop) Controller.e.get(i);
-					ammunitionCount += tmpAmmunitionDrop.getAmmunitionValue();
-					tmpAmmunitionDrop.destroySelf(this);
-					Controller.e.remove(tmpAmmunitionDrop);
+		for (int i = 0; i < Controller.entities.size(); i++) {
+			Entity entity = Controller.entities.get(i);
+			if (entity instanceof GameObject)
+				if (Projectile.collision(getBounds(), entity.getBounds())) {
+					if (entity instanceof Enemy) {
+						Enemy tempEnemy = (Enemy) entity;
+						tempEnemy.destroySelf(this);
+						loseHealth();
+					} else if (entity instanceof AmmunitionDrop) {
+						AmmunitionDrop tmpAmmunitionDrop = (AmmunitionDrop) entity;
+						ammunitionCount += tmpAmmunitionDrop.getAmmunitionValue();
+						tmpAmmunitionDrop.destroySelf(this);
+						Controller.entities.remove(tmpAmmunitionDrop);
+					}
 				}
-			}
 		}
 		anima.runAnimation();
 	}
@@ -116,7 +118,7 @@ public class Player implements Entity {
 
 	}
 
-	public Rectangle getbounds() {
+	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
 	}
 

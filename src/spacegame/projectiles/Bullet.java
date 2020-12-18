@@ -44,13 +44,12 @@ public class Bullet extends Projectile implements Entity {
 		}
 		x += currentSpeed;
 		anima.runAnimation();
-		for (int i = 0; i < Controller.e.size(); i++) {
-			if (Controller.e.get(i) instanceof Enemy) {
-				Enemy tempEnemy = (Enemy) Controller.e.get(i);
-				if (collision(getbounds(), Controller.e.get(i).getbounds())) {
-					System.out.println(collision(getbounds(), Controller.e.get(i).getbounds()));
+		for (int i = 0; i < Controller.entities.size(); i++) {
+			if (Controller.entities.get(i) instanceof Enemy) {
+				Enemy tempEnemy = (Enemy) Controller.entities.get(i);
+				if (collision(getBounds(), tempEnemy.getBounds())) {
 					tempEnemy.destroySelf(this);
-					Controller.e.remove(this);
+					Controller.entities.remove(this);
 				}
 			}
 
@@ -80,7 +79,7 @@ public class Bullet extends Projectile implements Entity {
 		this.y = y;
 	}
 
-	public Rectangle getbounds() {
+	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
 	}
 

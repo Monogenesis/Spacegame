@@ -9,7 +9,7 @@ public interface Entity {
 
 	public void render(Graphics g);
 
-	public Rectangle getbounds();
+	public Rectangle getBounds();
 
 	public double getX();
 

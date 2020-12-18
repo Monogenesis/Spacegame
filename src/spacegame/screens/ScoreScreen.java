@@ -43,7 +43,7 @@ public class ScoreScreen implements Entity {
     }
 
     @Override
-    public Rectangle getbounds() {
+    public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
     }
 

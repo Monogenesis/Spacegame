@@ -28,9 +28,9 @@ import java.awt.event.MouseEvent;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 320;
+	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 12 * 9;
-	public static final int SCALE = 2;
+	public static final int SCALE = 1;
 	public static final String TITLE = "Space Game";
 
 	private Boolean running = false;
@@ -72,14 +72,13 @@ public class Game extends Canvas implements Runnable {
 		p = new Player(200, 200, tex);
 		c = new Controller(this, tex);
 		p.setController(c);
-		menu = new Menu(0, 0, tex);
+		menu = new Menu(0, 0, c);
 		scoreScreen = new ScoreScreen();
 	}
 
 	private synchronized void start() {
 		if (running)
 			return;
-
 		running = true;
 		thread = new Thread(this);
 		thread.start();
@@ -122,10 +121,11 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println(updates + " Ticks, Fps " + frames);
+				// System.out.println(updates + " Ticks, Fps " + frames);
 				updates = 0;
 				frames = 0;
-				c.updateTime();
+				if (state == STATE.Game)
+					c.updateTime();
 			}
 
 			try {
@@ -218,12 +218,12 @@ public class Game extends Canvas implements Runnable {
 
 		JFrame frame = new JFrame(Game.TITLE);
 		frame.add(game);
-		frame.pack();
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
+		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-
 		game.start();
 	}
 
@@ -264,33 +264,8 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
-	public void mouseControl() {
-		double mx = MouseInfo.getPointerInfo().getLocation().getX() - this.getLocationOnScreen().getX();
-		double my = MouseInfo.getPointerInfo().getLocation().getY() - this.getLocationOnScreen().getY();
-
-		// System.out.printf("Mousecontrol: %s, mouseX: %s, mouseY: %s --- %s%n",
-		// mouseControl, mx, my, p);
-		if (state == STATE.Game) {
-			if (mx > p.getX() + Player.BOUNDWIDTH) {
-				left = false;
-				right = true;
-			}
-			if (mx < p.getX() + Player.BOUNDWIDTH) {
-				right = false;
-				left = true;
-			}
-			if (my > p.getY() + Player.BOUNDHEIGHT) {
-				up = false;
-				down = true;
-			}
-			if (mx < p.getY() + Player.BOUNDHEIGHT) {
-				down = false;
-				up = true;
-			}
-		}
-	}
-
 	public void keyReleased(KeyEvent e) {
+
 		int key = e.getKeyCode();
 
 		if (state == STATE.Game) {
@@ -318,18 +293,21 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mouseReleased(MouseEvent e) {
-
 		if (state == STATE.Menu) {
-			if (menu.playButton.contains(e.getPoint())) {
+			if (menu.continueButton.getBounds().contains(e.getPoint()) && menu.continueButton.enabled) {
+				left = right = up = down = false;
+				Game.state = Game.STATE.Game;
+			} else if (menu.playButton.getBounds().contains(e.getPoint()) && menu.playButton.enabled) {
 				// pressed playbutton
 				left = right = up = down = false;
 				Game.state = Game.STATE.Game;
 				Controller.time = 0;
-			} else if (menu.helpButton.contains(e.getPoint())) {
+				c.running = true;
+			} else if (menu.helpButton.getBounds().contains(e.getPoint()) && menu.helpButton.enabled) {
 				// pressed help button
 				left = right = up = down = false;
 				Game.state = Game.STATE.Help;
-			} else if (menu.quitButton.contains(e.getPoint())) {
+			} else if (menu.quitButton.getBounds().contains(e.getPoint()) && menu.quitButton.enabled) {
 				System.exit(1);
 			}
 		} else if (state == STATE.Score) {
@@ -339,6 +317,7 @@ public class Game extends Canvas implements Runnable {
 				Game.state = Game.STATE.Game;
 				Controller.time = 0;
 				Player.score = 0;
+				c.running = true;
 			}
 		}
 

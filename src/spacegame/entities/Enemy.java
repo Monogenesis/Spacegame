@@ -4,24 +4,24 @@ import java.awt.Graphics;
 import java.io.ObjectInputStream.GetField;
 
 import spacegame.animation.Animation;
+import spacegame.animation.DestroyAnimation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 
 public class Enemy extends GameObject {
     private boolean movingFromRight = true;
-    protected Animation animaDestroy;
-    private boolean destroyed;
+    private Textures tex;
 
     public Enemy(double x, double y, int speed, Textures tex) {
         super(x, y, speed, tex);
+        this.tex = tex;
         anima = new Animation(4, tex.enemy);
-        animaDestroy = new Animation(3, tex.enemyDestroy);
     }
 
     public void destroySelf(Entity reason) {
         super.destroySelf(reason);
-        destroyed = true;
-
+        Controller.entities.add(new DestroyAnimation(x, y, 4, tex.enemyDestroy, 3, 7));
+        Controller.entities.remove(this);
     }
 
     @Override
@@ -36,22 +36,11 @@ public class Enemy extends GameObject {
         } else if (x > 640) {
             movingFromRight = true;
         }
-        if (!destroyed) {
-            anima.runAnimation();
-        } else {
-            animaDestroy.runAnimation();
-            if (animaDestroy.getCount() == animaDestroy.getFrames()) {
-                Controller.e.remove(this);
-            }
-        }
+        anima.runAnimation();
     }
 
     @Override
     public void render(Graphics g) {
-        if (!destroyed) {
-            anima.drawAnimation(g, x, y);
-        } else {
-            animaDestroy.drawAnimation(g, x, y, 3, 7);
-        }
+        anima.drawAnimation(g, x, y);
     }
 }

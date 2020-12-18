@@ -4,7 +4,7 @@ import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 
 public class AmmunitionDrop extends GameObject {
-    private int value = 5;
+    private int value = 10;
 
     public AmmunitionDrop(double x, double y, int speed, Textures tex) {
         super(x, y, speed, tex);
