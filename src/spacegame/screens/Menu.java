@@ -3,9 +3,11 @@ package spacegame.screens;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
+
+import javax.swing.plaf.ColorUIResource;
+
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import spacegame.Game;
@@ -17,6 +19,7 @@ public class Menu implements Entity {
 	private double x, y;
 	private int labelTextPos;
 	private String labelText = "SPACE GAME";
+	public static Color labelColor = new ColorUIResource(253, 250, 114);
 	private static int BOUNDWIDTH = 15;
 	private static int BOUNDHEIGHT = 5;
 
@@ -55,7 +58,7 @@ public class Menu implements Entity {
 
 	public void render(Graphics g) {
 		g.setFont(menuLabelFont);
-		g.setColor(Color.yellow);
+		g.setColor(labelColor);
 		g.drawString(labelText, labelTextPos, 100);
 
 		continueButton.render(g);

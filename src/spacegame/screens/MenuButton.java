@@ -1,9 +1,12 @@
 package spacegame.screens;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+
+import javax.swing.plaf.ColorUIResource;
 
 import spacegame.Game;
 import spacegame.entities.Entity;
@@ -15,6 +18,7 @@ public class MenuButton implements Entity {
     public boolean enabled;
     private Rectangle2D bounds;
     private Rectangle worldBounds;
+    private Color color;
 
     private final String text;
 
@@ -28,23 +32,29 @@ public class MenuButton implements Entity {
         this.textHeight = (int) this.bounds.getBounds().getHeight() - 5;
         worldBounds = new Rectangle((int) this.x, (int) this.y, (int) bounds.getBounds().getWidth(),
                 (int) bounds.getBounds().getHeight());
+        color = new ColorUIResource(3, 155, 229);
+    }
+
+    public MenuButton(int x, int y, String text, boolean enabled, Color color) {
+        this(x, y, text, enabled);
+        this.color = color;
     }
 
     @Override
     public void tick() {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void render(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
+
         g.setFont(Menu.buttonFont);
+
         if (enabled)
-            g.setColor(Menu.enabledColor);
+            g.setColor(color != null ? this.color : Menu.enabledColor);
         else
             g.setColor(Menu.disabledColor);
-        g2d.draw(worldBounds);
+
         g.drawString(text, (int) x, (int) y + textHeight);
 
     }

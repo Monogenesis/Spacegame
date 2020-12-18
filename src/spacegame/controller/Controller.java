@@ -73,7 +73,7 @@ public class Controller {
   public void updateTime() {
     time++;
     if ((time + 1) % 5 == 0) {
-      addEntity(new AmmunitionDrop(640, Math.random() * (Game.HEIGHT + 30), 1, tex));
+      addEntity(new AmmunitionDrop(640, Math.random() * (Game.HEIGHT - 30), 1, tex));
     }
   }
 

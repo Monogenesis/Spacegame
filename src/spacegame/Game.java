@@ -5,7 +5,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -19,7 +18,7 @@ import spacegame.controller.Controller;
 import spacegame.controller.KeyInput;
 import spacegame.controller.MouseInput;
 import spacegame.entities.Player;
-import spacegame.projectiles.Bullet;
+import spacegame.screens.HelpScreen;
 import spacegame.screens.Menu;
 import spacegame.screens.ScoreScreen;
 
@@ -39,6 +38,7 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private BufferedImage spriteSheet = null;
 	private BufferedImage menuBackground = null;
+	private BufferedImage helpMenuBackground = null;
 	// private BufferedImage player;
 
 	private Player p;
@@ -48,6 +48,7 @@ public class Game extends Canvas implements Runnable {
 
 	private Menu menu;
 	private ScoreScreen scoreScreen;
+	private HelpScreen helpScreen;
 
 	public static enum STATE {
 		Game, Menu, Help, Score
@@ -63,6 +64,7 @@ public class Game extends Canvas implements Runnable {
 		try {
 			spriteSheet = loader.loadImage("/resources/SpriteSheet.png");
 			menuBackground = loader.loadImage("/resources/menuBackground.png");
+			helpMenuBackground = loader.loadImage("/resources/helpMenuBackground.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,6 +76,8 @@ public class Game extends Canvas implements Runnable {
 		p.setController(c);
 		menu = new Menu(0, 0, c);
 		scoreScreen = new ScoreScreen(c);
+		helpScreen = new HelpScreen(c, helpMenuBackground);
+
 	}
 
 	private synchronized void start() {
@@ -163,15 +167,17 @@ public class Game extends Canvas implements Runnable {
 			p.tick();
 			c.tick();
 		} else if (state == STATE.Menu) {
-
 			menu.tick();
-
+		} else if (state == STATE.Score) {
+			scoreScreen.tick();
+		} else if (state == STATE.Help) {
+			helpScreen.tick();
 		}
 	}
 
 	private void render() {
-		backgroundPos += 1;
-		if (backgroundPos == getWidth()) {
+		backgroundPos += 0.2;
+		if ((int) backgroundPos == getWidth()) {
 			backgroundPos = 0;
 		}
 		BufferStrategy bs = this.getBufferStrategy();
@@ -204,6 +210,8 @@ public class Game extends Canvas implements Runnable {
 			menu.render(g);
 		} else if (state == STATE.Score) {
 			scoreScreen.render(g);
+		} else if (state == STATE.Help) {
+			helpScreen.render(g);
 		}
 		////////////////
 
@@ -324,6 +332,10 @@ public class Game extends Canvas implements Runnable {
 				c.running = true;
 			} else if (scoreScreen.mainMenuButton.getBounds().contains(e.getPoint())) {
 				Game.state = Game.STATE.Menu;
+			}
+		} else if (state == STATE.Help) {
+			if (helpScreen.mainMenuButton.getBounds().contains(e.getPoint())) {
+				Game.state = STATE.Menu;
 			}
 		}
 
