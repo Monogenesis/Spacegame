@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int HEIGHT = WIDTH / 12 * 9;
 	public static final int SCALE = 1;
 	public static final String TITLE = "Space Game";
-
+	private double backgroundPos = 0;
 	private Boolean running = false;
 	private Thread thread;
 
@@ -170,7 +170,10 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void render() {
-
+		backgroundPos += 1;
+		if (backgroundPos == getWidth()) {
+			backgroundPos = 0;
+		}
 		BufferStrategy bs = this.getBufferStrategy();
 
 		if (bs == null) {
@@ -183,7 +186,8 @@ public class Game extends Canvas implements Runnable {
 		/////////////
 
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-		g.drawImage(menuBackground, 0, 0, getWidth(), getHeight(), this);
+		g.drawImage(menuBackground, (int) (0 - backgroundPos), 0, getWidth(), getHeight(), this);
+		g.drawImage(menuBackground, (int) (getWidth() - backgroundPos), 0, getWidth(), getHeight(), this);
 
 		if (state == STATE.Game) {
 			g.setColor(Color.white);
