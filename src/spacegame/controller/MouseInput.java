@@ -19,8 +19,7 @@ public class MouseInput implements MouseListener {
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("entered");
-		System.out.println(e.getPoint());
+
 	}
 
 	public void mouseExited(MouseEvent arg0) {

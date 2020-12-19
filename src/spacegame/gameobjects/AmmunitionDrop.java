@@ -1,4 +1,4 @@
-package spacegame.entities;
+package spacegame.gameobjects;
 
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;

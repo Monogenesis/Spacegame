@@ -1,8 +1,8 @@
-package spacegame.entities.enemies;
+package spacegame.gameobjects.enemies;
 
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
-import spacegame.entities.GameObject;
+import spacegame.gameobjects.GameObject;
 
 public class Enemy extends GameObject {
 

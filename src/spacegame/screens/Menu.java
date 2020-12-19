@@ -12,7 +12,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import spacegame.Game;
 import spacegame.controller.Controller;
-import spacegame.entities.Entity;
+import spacegame.gameobjects.Entity;
 
 public class Menu implements Entity {
 

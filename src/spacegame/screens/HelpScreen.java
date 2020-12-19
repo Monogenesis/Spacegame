@@ -7,8 +7,8 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import spacegame.Game;
 import spacegame.controller.Controller;
-import spacegame.entities.Entity;
-import spacegame.entities.Player;
+import spacegame.gameobjects.Entity;
+import spacegame.gameobjects.Player;
 
 import java.awt.Color;
 

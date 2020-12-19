@@ -1,10 +1,10 @@
-package spacegame.entities.enemies;
+package spacegame.gameobjects.enemies;
 
 import spacegame.animation.Animation;
 import spacegame.animation.DestroyAnimation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
-import spacegame.entities.Entity;
+import spacegame.gameobjects.Entity;
 
 public class Enemy1 extends Enemy {
     private boolean movingFromRight = true;

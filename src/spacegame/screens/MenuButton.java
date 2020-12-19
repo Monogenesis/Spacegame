@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.plaf.ColorUIResource;
 
 import spacegame.Game;
-import spacegame.entities.Entity;
+import spacegame.gameobjects.Entity;
 
 public class MenuButton implements Entity {
 

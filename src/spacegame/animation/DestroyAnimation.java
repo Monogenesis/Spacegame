@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import spacegame.controller.Controller;
-import spacegame.entities.Entity;
+import spacegame.gameobjects.Entity;
 
 public class DestroyAnimation extends Animation implements Entity {
 

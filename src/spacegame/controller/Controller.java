@@ -6,11 +6,12 @@ import java.util.LinkedList;
 import spacegame.Game;
 import spacegame.Game.STATE;
 import spacegame.animation.Textures;
-import spacegame.entities.AmmunitionDrop;
-import spacegame.entities.Entity;
-import spacegame.entities.enemies.Enemy;
-import spacegame.entities.enemies.Enemy1;
-import spacegame.entities.enemies.Enemy2;
+import spacegame.gameobjects.AmmunitionDrop;
+import spacegame.gameobjects.Entity;
+import spacegame.gameobjects.Player;
+import spacegame.gameobjects.enemies.Enemy;
+import spacegame.gameobjects.enemies.Enemy1;
+import spacegame.gameobjects.enemies.Enemy2;
 
 public class Controller {
 
@@ -23,11 +24,13 @@ public class Controller {
   private Textures tex;
   private int levelCounter = 0;
   public boolean running;
+  private Player p;
 
-  public Controller(Game game, Textures tex) {
+  public Controller(Game game, Textures tex, Player p) {
     this.game = game;
     this.tex = tex;
     // loadLevel(1);
+    this.p = p;
   }
 
   public void loadLevel(int wave) {
@@ -44,8 +47,7 @@ public class Controller {
       }
       case 2: {
         for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 64) {
-          Enemy1 enemy = new Enemy1(640, i, 2, tex);
-          addEntity(enemy);
+          addEntity(new Enemy2(640, i, 3, tex));
         }
         break;
 
@@ -101,6 +103,10 @@ public class Controller {
 
     // System.out.println("Bullet is empty " + b.isEmpty() + " " + "Enemy is empty "
     // + e.isEmpty());
+  }
+
+  public Player getPlayer() {
+    return p;
   }
 
   public void render(Graphics g) {

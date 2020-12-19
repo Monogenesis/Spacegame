@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import spacegame.controller.Controller;
-import spacegame.entities.Entity;
-import spacegame.entities.Player;
+import spacegame.gameobjects.Entity;
+import spacegame.gameobjects.Player;
 
 import java.awt.Color;
 

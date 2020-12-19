@@ -17,7 +17,7 @@ import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.controller.KeyInput;
 import spacegame.controller.MouseInput;
-import spacegame.entities.Player;
+import spacegame.gameobjects.Player;
 import spacegame.screens.HelpScreen;
 import spacegame.screens.Menu;
 import spacegame.screens.ScoreScreen;
@@ -26,7 +26,7 @@ import java.awt.event.MouseEvent;
 
 public class Game extends Canvas implements Runnable {
 
-	public static boolean drawHitboxes = true;
+	public static boolean drawHitboxes = false;
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 12 * 9;
@@ -73,7 +73,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener((new MouseInput(this)));
 		tex = new Textures(this);
 		p = new Player(200, 200, tex);
-		c = new Controller(this, tex);
+		c = new Controller(this, tex, p);
 		p.setController(c);
 		menu = new Menu(0, 0, c);
 		scoreScreen = new ScoreScreen(c);

@@ -1,4 +1,4 @@
-package spacegame.entities;
+package spacegame.gameobjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import spacegame.Game;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
-import spacegame.projectiles.Bullet;
+import spacegame.gameobjects.projectiles.Bullet;
 
 public class GameObject implements Entity {
 
@@ -53,8 +53,6 @@ public class GameObject implements Entity {
 	public void destroySelf(Entity reason) {
 		if (reason instanceof Bullet)
 			Player.score += scoreValue;
-
-		System.out.println("Destoyed: " + this);
 	}
 
 	public double getY() {

@@ -1,4 +1,4 @@
-package spacegame.entities;
+package spacegame.gameobjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -7,10 +7,12 @@ import spacegame.Game;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
-import spacegame.entities.enemies.Enemy;
-import spacegame.projectiles.Bullet;
+import spacegame.gameobjects.enemies.Enemy;
+import spacegame.gameobjects.projectiles.Bullet;
 
 public class Player extends GameObject {
+
+	public static Player player;
 
 	private double x;
 	private double y;
@@ -34,6 +36,7 @@ public class Player extends GameObject {
 		this.tex = tex;
 		init();
 		hitboxXOffset = 3;
+		player = this;
 	}
 
 	public void shoot() {
@@ -108,11 +111,8 @@ public class Player extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		if (Game.drawHitboxes) {
-			g.drawRect((int) x + hitboxXOffset, (int) y + hitboxYOffset, hitboxWidth, hitboxHeight);
-			// System.out.println("Draw Hitbox for: " + this);
-		}
-		anima.drawAnimation(g, x, y);
+		super.render(g);
+
 		if (health == 3)
 			g.drawImage(tex.health3, 20, 20, null);
 		else if (health == 2)
