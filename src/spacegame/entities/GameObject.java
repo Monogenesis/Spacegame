@@ -13,20 +13,24 @@ public class GameObject implements Entity {
 	protected double x, y;
 	protected int hitboxXOffset = 0;
 	protected int hitboxYOffset = 0;
-	protected Textures tex;
+	public Textures tex;
 	protected Rectangle hitbox;
-	protected int BOUNDWIDTH = 5;
-	protected int BOUNDHEIGHT = 5;
+	protected int hitboxWidth = 5;
+	protected int hitboxHeight = 5;
 
 	protected Animation anima;
 	protected int scoreValue = 15;
 	protected int speed = 2;
 
-	public GameObject(double x, double y, int speed, Textures tex) {
+	public GameObject(double x, double y, int speed, Textures tex, Animation animation, int boundWidth,
+			int boundHeight) {
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
 		this.tex = tex;
+		this.hitboxWidth = boundWidth;
+		this.hitboxHeight = boundHeight;
+		anima = animation;
 	}
 
 	public void tick() {
@@ -43,7 +47,7 @@ public class GameObject implements Entity {
 			// g.drawRect(getHitbox().x, getHitbox().y, getHitbox().width,
 			// getHitbox().height);
 		}
-		anima.drawAnimation(g, x, y);
+		anima.drawAnimation(g, getX(), getY());
 	}
 
 	public void destroySelf(Entity reason) {
@@ -70,11 +74,11 @@ public class GameObject implements Entity {
 	}
 
 	public Rectangle getHitbox() {
-		return new Rectangle((int) getX() + hitboxXOffset, (int) getY() + hitboxYOffset, BOUNDWIDTH, BOUNDHEIGHT);
+		return new Rectangle((int) getX() + hitboxXOffset, (int) getY() + hitboxYOffset, hitboxWidth, hitboxHeight);
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
+		return new Rectangle((int) x, (int) y, hitboxWidth, hitboxHeight);
 	}
 
 	public int getSpeed() {

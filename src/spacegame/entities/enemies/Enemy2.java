@@ -13,13 +13,10 @@ public class Enemy2 extends Enemy {
     private double sinusCounter;
 
     public Enemy2(double x, double y, int speed, Textures tex) {
-        super(x, y, speed, tex);
-        anima = new Animation(5, tex.enemy2);
-
+        super(x, y, speed, tex, new Animation(5, tex.enemy2), 30, 24);
         hitboxXOffset = 3;
         hitboxYOffset = 5;
-        BOUNDHEIGHT = 24;
-        BOUNDWIDTH = 30;
+
     }
 
     @Override

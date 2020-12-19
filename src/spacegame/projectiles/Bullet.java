@@ -23,15 +23,12 @@ public class Bullet extends GameObject {
 	private Player player;
 
 	public Bullet(double x, double y, Textures tex, Player player) {
-		super(x, y, 5, tex);
+		super(x, y, 5, tex, new Animation(5, tex.bullet), 17, 7);
 		this.x = x;
 		this.y = y;
 		this.player = player;
-		anima = new Animation(5, tex.bullet);
 		hitboxXOffset = -2;
 		hitboxYOffset = -2;
-		BOUNDHEIGHT = 7;
-		BOUNDWIDTH = 17;
 	}
 
 	@Override
@@ -57,11 +54,13 @@ public class Bullet extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		if (Game.drawHitboxes) {
-			g.drawRect((int) x + hitboxXOffset, (int) y + hitboxYOffset, BOUNDWIDTH, BOUNDHEIGHT);
-			// System.out.println("Draw Hitbox for: " + this);
-		}
-		anima.drawAnimation(g, x, y);
+		super.render(g);
+		// if (Game.drawHitboxes) {
+		// g.drawRect((int) x + hitboxXOffset, (int) y + hitboxYOffset, hitboxWidth,
+		// hitboxHeight);
+		// // System.out.println("Draw Hitbox for: " + this);
+		// }
+		// anima.drawAnimation(g, x, y);
 	}
 
 	public double getX() {

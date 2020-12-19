@@ -28,15 +28,12 @@ public class Player extends GameObject {
 	public static int score = 0;
 
 	public Player(double x, double y, Textures tex) {
-		super(x, y, 1, tex);
+		super(x, y, 1, tex, new Animation(4, tex.player), 16, 19);
 		this.x = x;
 		this.y = y;
 		this.tex = tex;
 		init();
-		anima = new Animation(4, tex.player);
 		hitboxXOffset = 3;
-		BOUNDHEIGHT = 16;
-		BOUNDWIDTH = 19;
 	}
 
 	public void shoot() {
@@ -112,7 +109,7 @@ public class Player extends GameObject {
 	@Override
 	public void render(Graphics g) {
 		if (Game.drawHitboxes) {
-			g.drawRect((int) x + hitboxXOffset, (int) y + hitboxYOffset, BOUNDWIDTH, BOUNDHEIGHT);
+			g.drawRect((int) x + hitboxXOffset, (int) y + hitboxYOffset, hitboxWidth, hitboxHeight);
 			// System.out.println("Draw Hitbox for: " + this);
 		}
 		anima.drawAnimation(g, x, y);
@@ -126,7 +123,7 @@ public class Player extends GameObject {
 	}
 
 	public Rectangle getHitbox() {
-		return new Rectangle((int) x + hitboxXOffset, (int) y + hitboxYOffset, BOUNDWIDTH, BOUNDHEIGHT);
+		return new Rectangle((int) x + hitboxXOffset, (int) y + hitboxYOffset, hitboxWidth, hitboxHeight);
 	}
 
 	public void setVelY(double velY) {
