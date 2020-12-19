@@ -47,7 +47,7 @@ public class Player extends GameObject {
 
 	}
 
-	private void init() {
+	public void init() {
 		x = startXPos;
 		y = startYPos;
 		ammunitionCount = 40;

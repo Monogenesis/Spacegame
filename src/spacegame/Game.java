@@ -296,7 +296,10 @@ public class Game extends Canvas implements Runnable {
 		// pressed playbutton
 		left = right = up = down = false;
 		Game.state = Game.STATE.Game;
+		p.init();
+		Controller.entities.clear();
 		Controller.time = 0;
+		c.levelCounter = 0;
 		Player.score = 0;
 		c.running = true;
 	}

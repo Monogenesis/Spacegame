@@ -22,7 +22,7 @@ public class Controller {
   private Game game;
 
   private Textures tex;
-  private int levelCounter = 0;
+  public int levelCounter = 0;
   public boolean running;
   private Player p;
 
@@ -40,7 +40,7 @@ public class Controller {
       case 1: {
         for (int i = 10; i < (Game.HEIGHT * Game.SCALE); i += 96) {
           // Enemy enemy = new Enemy(640, i, 1, tex);
-          Enemy2 enemy = new Enemy2(640, i, 2, tex);
+          Enemy2 enemy = new Enemy2(640, i, 1, tex);
           addEntity(enemy);
         }
         break;
@@ -54,7 +54,7 @@ public class Controller {
       }
       default: {
         for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 96) {
-          addEntity(new Enemy2(640, i, 3, tex));
+          addEntity(new Enemy2(640, i, 1, tex));
         }
       }
     }
