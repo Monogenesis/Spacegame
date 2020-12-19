@@ -1,4 +1,4 @@
-#Space Game
+# Space Game
 
 ![menu](./screenshots/menu.png)
 ![gameplay](./screenshots/gameplay.png)
