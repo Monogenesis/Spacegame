@@ -1,26 +1,26 @@
-package spacegame.entities;
-
-import java.awt.Graphics;
-import java.io.ObjectInputStream.GetField;
+package spacegame.entities.enemies;
 
 import spacegame.animation.Animation;
 import spacegame.animation.DestroyAnimation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
+import spacegame.entities.Entity;
 
-public class Enemy extends GameObject {
+public class Enemy1 extends Enemy {
     private boolean movingFromRight = true;
     private Textures tex;
 
-    public Enemy(double x, double y, int speed, Textures tex) {
+    public Enemy1(double x, double y, int speed, Textures tex) {
         super(x, y, speed, tex);
         this.tex = tex;
-        anima = new Animation(4, tex.enemy);
+        anima = new Animation(4, tex.enemy1);
+        BOUNDHEIGHT = 17;
+        BOUNDWIDTH = 26;
     }
 
     public void destroySelf(Entity reason) {
         super.destroySelf(reason);
-        Controller.entities.add(new DestroyAnimation(x, y, 4, tex.enemyDestroy, 3, 7));
+        Controller.entities.add(new DestroyAnimation(x, y, 4, tex.enemy1Destroy, 3, 7));
         Controller.entities.remove(this);
     }
 
@@ -39,8 +39,4 @@ public class Enemy extends GameObject {
         anima.runAnimation();
     }
 
-    @Override
-    public void render(Graphics g) {
-        anima.drawAnimation(g, x, y);
-    }
 }

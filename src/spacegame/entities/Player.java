@@ -3,13 +3,14 @@ package spacegame.entities;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import spacegame.Game;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
+import spacegame.entities.enemies.Enemy;
 import spacegame.projectiles.Bullet;
-import spacegame.projectiles.Projectile;
 
-public class Player implements Entity {
+public class Player extends GameObject {
 
 	private double x;
 	private double y;
@@ -17,26 +18,25 @@ public class Player implements Entity {
 	private double velX = 0;
 	private double velY = 0;
 
-	public static int BOUNDWIDTH = 25;
-	public static int BOUNDHEIGHT = 17;
-
 	private static int startXPos = 200;
 	private static int startYPos = 200;
 
 	private Textures tex;
-
-	private Animation anima;
 	Controller controller;
 	private int health = 3;
 	private int ammunitionCount = 40;
 	public static int score = 0;
 
 	public Player(double x, double y, Textures tex) {
+		super(x, y, 1, tex);
 		this.x = x;
 		this.y = y;
 		this.tex = tex;
 		init();
 		anima = new Animation(4, tex.player);
+		hitboxXOffset = 3;
+		BOUNDHEIGHT = 16;
+		BOUNDWIDTH = 19;
 	}
 
 	public void shoot() {
@@ -78,19 +78,21 @@ public class Player implements Entity {
 
 		for (int i = 0; i < Controller.entities.size(); i++) {
 			Entity entity = Controller.entities.get(i);
-			if (entity instanceof GameObject)
-				if (Projectile.collision(getBounds(), entity.getBounds())) {
-					if (entity instanceof Enemy) {
-						Enemy tempEnemy = (Enemy) entity;
+			if (entity instanceof GameObject) {
+				GameObject gObject = (GameObject) entity;
+				if (collision(getHitbox(), gObject.getHitbox())) {
+					if (gObject instanceof Enemy) {
+						Enemy tempEnemy = (Enemy) gObject;
 						tempEnemy.destroySelf(this);
 						loseHealth();
-					} else if (entity instanceof AmmunitionDrop) {
-						AmmunitionDrop tmpAmmunitionDrop = (AmmunitionDrop) entity;
+					} else if (gObject instanceof AmmunitionDrop) {
+						AmmunitionDrop tmpAmmunitionDrop = (AmmunitionDrop) gObject;
 						ammunitionCount += tmpAmmunitionDrop.getAmmunitionValue();
 						tmpAmmunitionDrop.destroySelf(this);
 						Controller.entities.remove(tmpAmmunitionDrop);
 					}
 				}
+			}
 		}
 		anima.runAnimation();
 	}
@@ -107,7 +109,12 @@ public class Player implements Entity {
 		controller.restartlevel();
 	}
 
+	@Override
 	public void render(Graphics g) {
+		if (Game.drawHitboxes) {
+			g.drawRect((int) x + hitboxXOffset, (int) y + hitboxYOffset, BOUNDWIDTH, BOUNDHEIGHT);
+			// System.out.println("Draw Hitbox for: " + this);
+		}
 		anima.drawAnimation(g, x, y);
 		if (health == 3)
 			g.drawImage(tex.health3, 20, 20, null);
@@ -118,8 +125,8 @@ public class Player implements Entity {
 
 	}
 
-	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
+	public Rectangle getHitbox() {
+		return new Rectangle((int) x + hitboxXOffset, (int) y + hitboxYOffset, BOUNDWIDTH, BOUNDHEIGHT);
 	}
 
 	public void setVelY(double velY) {

@@ -2,7 +2,8 @@ package spacegame.entities;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
+import java.awt.Graphics2D;
+import spacegame.Game;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.projectiles.Bullet;
@@ -10,9 +11,12 @@ import spacegame.projectiles.Bullet;
 public class GameObject implements Entity {
 
 	protected double x, y;
-
-	private static int BOUNDWIDTH = 26;
-	private static int BOUNDHEIGHT = 18;
+	protected int hitboxXOffset = 0;
+	protected int hitboxYOffset = 0;
+	protected Textures tex;
+	protected Rectangle hitbox;
+	protected int BOUNDWIDTH = 5;
+	protected int BOUNDHEIGHT = 5;
 
 	protected Animation anima;
 	protected int scoreValue = 15;
@@ -22,6 +26,7 @@ public class GameObject implements Entity {
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
+		this.tex = tex;
 	}
 
 	public void tick() {
@@ -32,12 +37,20 @@ public class GameObject implements Entity {
 	}
 
 	public void render(Graphics g) {
+		if (Game.drawHitboxes) {
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.draw(this.getHitbox());
+			// g.drawRect(getHitbox().x, getHitbox().y, getHitbox().width,
+			// getHitbox().height);
+		}
 		anima.drawAnimation(g, x, y);
 	}
 
 	public void destroySelf(Entity reason) {
 		if (reason instanceof Bullet)
 			Player.score += scoreValue;
+
+		System.out.println("Destoyed: " + this);
 	}
 
 	public double getY() {
@@ -56,6 +69,10 @@ public class GameObject implements Entity {
 		this.x = x;
 	}
 
+	public Rectangle getHitbox() {
+		return new Rectangle((int) getX() + hitboxXOffset, (int) getY() + hitboxYOffset, BOUNDWIDTH, BOUNDHEIGHT);
+	}
+
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, BOUNDWIDTH, BOUNDHEIGHT);
 	}
@@ -68,4 +85,8 @@ public class GameObject implements Entity {
 		this.speed = speed;
 	}
 
+	public static Boolean collision(Rectangle a, Rectangle b) {
+
+		return a.intersects(b);
+	}
 }

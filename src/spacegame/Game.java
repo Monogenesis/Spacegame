@@ -26,6 +26,7 @@ import java.awt.event.MouseEvent;
 
 public class Game extends Canvas implements Runnable {
 
+	public static boolean drawHitboxes = true;
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 12 * 9;
@@ -266,9 +267,11 @@ public class Game extends Canvas implements Runnable {
 
 		}
 
-		if (state == STATE.Menu && key == KeyEvent.VK_SPACE) {
-			left = right = up = down = false;
-			Game.state = Game.STATE.Game;
+		else if ((state == STATE.Menu || state == STATE.Score) && key == KeyEvent.VK_SPACE) {
+			if (!c.running)
+				triggerNewGame();
+			else
+				state = STATE.Game;
 		}
 
 		if (key == KeyEvent.VK_ESCAPE) {
@@ -287,6 +290,15 @@ public class Game extends Canvas implements Runnable {
 					break;
 			}
 		}
+	}
+
+	private void triggerNewGame() {
+		// pressed playbutton
+		left = right = up = down = false;
+		Game.state = Game.STATE.Game;
+		Controller.time = 0;
+		Player.score = 0;
+		c.running = true;
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -322,11 +334,7 @@ public class Game extends Canvas implements Runnable {
 				left = right = up = down = false;
 				Game.state = Game.STATE.Game;
 			} else if (menu.playButton.getBounds().contains(e.getPoint()) && menu.playButton.enabled) {
-				// pressed playbutton
-				left = right = up = down = false;
-				Game.state = Game.STATE.Game;
-				Controller.time = 0;
-				c.running = true;
+				triggerNewGame();
 			} else if (menu.helpButton.getBounds().contains(e.getPoint()) && menu.helpButton.enabled) {
 				// pressed help button
 				left = right = up = down = false;
@@ -336,12 +344,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		} else if (state == STATE.Score) {
 			if (scoreScreen.restartButton.getBounds().contains(e.getPoint())) {
-				// pressed playbutton
-				left = right = up = down = false;
-				Game.state = Game.STATE.Game;
-				Controller.time = 0;
-				Player.score = 0;
-				c.running = true;
+				triggerNewGame();
 			} else if (scoreScreen.mainMenuButton.getBounds().contains(e.getPoint())) {
 				Game.state = Game.STATE.Menu;
 			}
