@@ -1,6 +1,8 @@
 package spacegame.controller;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import spacegame.Game;
@@ -17,6 +19,7 @@ public class Controller {
 
   public static LinkedList<Entity> entities = new LinkedList<Entity>();
   public static int time;
+  public static Rectangle maxEntityBounds = new Rectangle(-200, -200, Game.WIDTH + 400, Game.HEIGHT + 400);
   private Entity entity;
 
   private Game game;
@@ -38,24 +41,43 @@ public class Controller {
 
     switch (wave) {
       case 1: {
-        for (int i = 10; i < (Game.HEIGHT * Game.SCALE); i += 96) {
-          // Enemy enemy = new Enemy(640, i, 1, tex);
-          Enemy2 enemy = new Enemy2(640, i, 1, tex);
-          addEntity(enemy);
-        }
+        addEntity(new Enemy1(640, 15, 1, tex));
+        addEntity(new Enemy1(720, 45, 1, tex));
+        addEntity(new Enemy1(680, 85, 1, tex));
+        addEntity(new Enemy1(640, 155, 1, tex));
+        addEntity(new Enemy1(720, 185, 1, tex));
+        addEntity(new Enemy1(680, 225, 1, tex));
+        addEntity(new Enemy1(640, 295, 1, tex));
+        addEntity(new Enemy1(720, 325, 1, tex));
+        addEntity(new Enemy1(680, 365, 1, tex));
+        addEntity(new Enemy1(640, 435, 1, tex));
         break;
       }
       case 2: {
-        for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 64) {
-          addEntity(new Enemy2(640, i, 3, tex));
-        }
+        addEntity(new Enemy2(640, 15, 1, tex));
+        addEntity(new Enemy2(720, 45, 1, tex));
+        addEntity(new Enemy2(680, 85, 1, tex));
+        addEntity(new Enemy2(640, 155, 1, tex));
+        addEntity(new Enemy2(720, 185, 1, tex));
+        addEntity(new Enemy2(680, 225, 1, tex));
+        addEntity(new Enemy2(640, 295, 1, tex));
+        addEntity(new Enemy2(720, 325, 1, tex));
+        addEntity(new Enemy2(680, 365, 1, tex));
+        addEntity(new Enemy2(640, 435, 1, tex));
         break;
 
       }
       default: {
-        for (int i = 0; i < (Game.HEIGHT * Game.SCALE); i += 96) {
-          addEntity(new Enemy2(640, i, 1, tex));
-        }
+        addEntity(new Enemy2(640, 15, 2, tex));
+        addEntity(new Enemy2(720, 45, 2, tex));
+        addEntity(new Enemy2(680, 85, 2, tex));
+        addEntity(new Enemy2(640, 155, 2, tex));
+        addEntity(new Enemy2(720, 185, 2, tex));
+        addEntity(new Enemy2(680, 225, 2, tex));
+        addEntity(new Enemy2(640, 295, 2, tex));
+        addEntity(new Enemy2(720, 325, 2, tex));
+        addEntity(new Enemy2(680, 365, 2, tex));
+        addEntity(new Enemy2(640, 435, 2, tex));
       }
     }
 
@@ -91,7 +113,7 @@ public class Controller {
 
     for (int i = 0; i < entities.size(); i++) {
       if (entity != null) {
-        if (entity.getX() > 840 || entity.getX() < -50 || entity.getY() > 580) {
+        if (!maxEntityBounds.contains(new Point((int) entity.getX(), (int) entity.getY()))) {
           removeEntity(entity);
         } else {
           entity = entities.get(i);

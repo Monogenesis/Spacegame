@@ -15,9 +15,6 @@ public class Enemy1 extends Enemy {
     }
 
     public void destroySelf(Entity reason) {
-        if (reason == null) {
-            System.out.println("Th REASON WAS NULL");
-        }
         super.destroySelf(reason);
         Controller.entities.add(new DestroyAnimation(x, y, 4, tex.enemy1Destroy, 3, 7));
         Controller.entities.remove(this);
@@ -28,6 +25,7 @@ public class Enemy1 extends Enemy {
         if (movingFromRight) {
             x -= speed;
         } else {
+            speed = 4;
             x += speed;
         }
         if (x < -32) {
