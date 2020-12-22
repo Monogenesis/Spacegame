@@ -3,10 +3,11 @@ package spacegame.gameobjects;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import spacegame.Game;
 import spacegame.animation.Animation;
+import spacegame.animation.PlayerTurnAnimation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
+import spacegame.controller.Point;
 import spacegame.gameobjects.enemies.Enemy;
 import spacegame.gameobjects.projectiles.Bullet;
 
@@ -14,11 +15,16 @@ public class Player extends GameObject {
 
 	public static Player player;
 
+	public Point position = new Point();;
+
 	private double x;
 	private double y;
 
 	private double velX = 0;
 	private double velY = 0;
+
+	private boolean lookingRight = true;
+	private boolean turning = false;
 
 	private static int startXPos = 200;
 	private static int startYPos = 200;
@@ -28,28 +34,34 @@ public class Player extends GameObject {
 	private int health = 3;
 	private int ammunitionCount = 40;
 	public static int score = 0;
+	private Animation leftAnimation;
 
 	public Player(double x, double y, Textures tex) {
-		super(x, y, 1, tex, new Animation(4, tex.player), 16, 19);
+		super(x, y, 1, tex, new Animation(4, tex.playerLookRight), 16, 19);
 		this.x = x;
 		this.y = y;
 		this.tex = tex;
 		init();
 		hitboxXOffset = 3;
 		player = this;
+		leftAnimation = new Animation(4, tex.playerLookLeft);
+
 	}
 
 	public void shoot() {
-		if (ammunitionCount > 0) {
+		if (!turning && ammunitionCount > 0) {
 			ammunitionCount--;
-			controller.addEntity(new Bullet(getX(), getY() + 13, tex, this));
+			controller.addEntity(new Bullet(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1));
 		}
-
 	}
 
 	public void init() {
+
 		x = startXPos;
+		position.setX(x);
 		y = startYPos;
+		position.setY(y);
+
 		ammunitionCount = 40;
 		health = 3;
 	}
@@ -66,7 +78,8 @@ public class Player extends GameObject {
 
 		x += velX;
 		y += velY;
-
+		position.setX(x);
+		position.setY(y);
 		if (x <= 0)
 			x = 0;
 		if (x >= 640 - 20)
@@ -94,7 +107,10 @@ public class Player extends GameObject {
 				}
 			}
 		}
-		anima.runAnimation();
+		if (!turning && lookingRight)
+			anima.runAnimation();
+		else if (!turning)
+			leftAnimation.runAnimation();
 	}
 
 	public void loseHealth() {
@@ -112,6 +128,13 @@ public class Player extends GameObject {
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
+		if (!turning) {
+			if (lookingRight) {
+				anima.drawAnimation(g, getX(), getY());
+			} else {
+				leftAnimation.drawAnimation(g, getX(), getY());
+			}
+		}
 
 		if (health == 3)
 			g.drawImage(tex.health3, 20, 20, null);
@@ -139,6 +162,7 @@ public class Player extends GameObject {
 	}
 
 	public void setX(double x) {
+		position.setX(x);
 		this.x = x;
 	}
 
@@ -147,6 +171,7 @@ public class Player extends GameObject {
 	}
 
 	public void setY(double y) {
+		position.setY(y);
 		this.y = y;
 	}
 
@@ -156,6 +181,44 @@ public class Player extends GameObject {
 
 	public void setAmmunitionCount(int ammunitionCount) {
 		this.ammunitionCount = ammunitionCount;
+	}
+
+	public boolean isTurning() {
+		return this.turning;
+	}
+
+	public boolean getTurning() {
+		return this.turning;
+	}
+
+	public void turn() {
+		if (!turning && lookingRight) {
+			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 4, tex.playerTurnLeft, 0, 0));
+			setTurning(true);
+		}
+
+		else if (!turning) {
+			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 4, tex.playerTurnRight, 0, 0));
+			setTurning(true);
+		}
+
+	}
+
+	public void setTurning(boolean turning) {
+		this.turning = turning;
+
+	}
+
+	public boolean isLookingRight() {
+		return this.lookingRight;
+	}
+
+	public boolean getLookingRight() {
+		return this.lookingRight;
+	}
+
+	public void changeDirection() {
+		this.lookingRight = !lookingRight;
 	}
 
 	@Override

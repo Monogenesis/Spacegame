@@ -26,7 +26,7 @@ import java.awt.event.MouseEvent;
 
 public class Game extends Canvas implements Runnable {
 
-	public static boolean drawHitboxes = false;
+	public static boolean drawHitboxes = true;
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 12 * 9;
@@ -323,8 +323,14 @@ public class Game extends Canvas implements Runnable {
 			} else if (key == KeyEvent.VK_SPACE && isShooting) {
 				isShooting = false;
 
+			} else if (key == KeyEvent.VK_K) {
+
+			} else if (key == KeyEvent.VK_H) {
+				Game.drawHitboxes = !drawHitboxes;
 			}
+
 		}
+
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -332,6 +338,12 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mouseReleased(MouseEvent e) {
+
+		if (e.getButton() == MouseEvent.BUTTON1) {
+
+			p.turn();
+		}
+
 		if (state == STATE.Menu) {
 			if (menu.continueButton.getBounds().contains(e.getPoint()) && menu.continueButton.enabled) {
 				left = right = up = down = false;

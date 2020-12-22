@@ -1,5 +1,7 @@
 package spacegame.gameobjects;
 
+import java.awt.Graphics;
+
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 
@@ -15,6 +17,13 @@ public class AmmunitionDrop extends GameObject {
     @Override
     public void destroySelf(Entity reason) {
 
+    }
+
+    @Override
+    public void render(Graphics g) {
+
+        super.render(g);
+        anima.drawAnimation(g, getX(), getY());
     }
 
     public int getAmmunitionValue() {

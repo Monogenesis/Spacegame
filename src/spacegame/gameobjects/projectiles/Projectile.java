@@ -1,5 +1,7 @@
 package spacegame.gameobjects.projectiles;
 
+import java.awt.Graphics;
+
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.gameobjects.GameObject;
@@ -20,9 +22,15 @@ public class Projectile extends GameObject {
     }
 
     @Override
+    public void render(Graphics g) {
+
+        super.render(g);
+        anima.drawAnimation(g, getX(), getY());
+    }
+
+    @Override
     public void tick() {
         anima.runAnimation();
-        x += speed;
 
     }
 

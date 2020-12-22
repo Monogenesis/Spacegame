@@ -24,7 +24,7 @@ public class Enemy2 extends Enemy {
     @Override
     public void tick() {
         if (shotReady && (Controller.time) % 2 == 0) {
-            Controller.entities.add(new LightningProjectile(x, y, 5, tex, Player.player));
+            Controller.entities.add(new LightningProjectile(x, y, 2, tex, Player.player));
             shotReady = false;
         } else if ((Controller.time) % 2 != 0) {
             shotReady = true;

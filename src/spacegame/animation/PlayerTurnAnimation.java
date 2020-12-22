@@ -8,12 +8,12 @@ import spacegame.controller.Controller;
 import spacegame.gameobjects.Entity;
 import spacegame.gameobjects.Player;
 
-public class DestroyAnimation extends Animation implements Entity {
+public class PlayerTurnAnimation extends Animation implements Entity {
 
     private int xOffset, yOffset;
     private double x, y;
 
-    public DestroyAnimation(double x, double y, int speed, BufferedImage[] images, int xOffset, int yOffset) {
+    public PlayerTurnAnimation(double x, double y, int speed, BufferedImage[] images, int xOffset, int yOffset) {
         super(speed, images);
         this.xOffset = xOffset;
         this.yOffset = yOffset;
@@ -25,14 +25,17 @@ public class DestroyAnimation extends Animation implements Entity {
     @Override
     public void tick() {
         this.runAnimation();
+
         if (getCount() == getFrames()) {
+            Player.player.setTurning(false);
+            Player.player.changeDirection();
             Controller.entities.remove(this);
         }
     }
 
     @Override
     public void render(Graphics g) {
-        this.drawAnimation(g, x, y, xOffset, yOffset);
+        this.drawAnimation(g, Player.player.position.getX(), Player.player.position.getY(), xOffset, yOffset);
     }
 
     @Override

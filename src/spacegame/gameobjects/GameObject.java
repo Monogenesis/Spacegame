@@ -47,7 +47,7 @@ public class GameObject implements Entity {
 			// g.drawRect(getHitbox().x, getHitbox().y, getHitbox().width,
 			// getHitbox().height);
 		}
-		anima.drawAnimation(g, getX(), getY());
+
 	}
 
 	public void destroySelf(Entity reason) {

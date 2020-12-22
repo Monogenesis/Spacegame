@@ -8,8 +8,11 @@ import spacegame.gameobjects.enemies.Enemy;
 
 public class Bullet extends Projectile {
 
-	public Bullet(double x, double y, Textures tex, Player player) {
+	private int direction;
+
+	public Bullet(double x, double y, Textures tex, Player player, int direction) {
 		super(x, y, 5, tex, new Animation(5, tex.bullet), 17, 7, player);
+		this.direction = direction;
 
 		hitboxXOffset = -2;
 		hitboxYOffset = -2;
@@ -22,7 +25,7 @@ public class Bullet extends Projectile {
 		if (currentSpeed < maxSpeed) {
 			currentSpeed += velocity;
 		}
-		x += currentSpeed;
+		x += (currentSpeed * direction);
 
 		for (int i = 0; i < Controller.entities.size(); i++) {
 			if (Controller.entities.get(i) instanceof Enemy) {

@@ -9,7 +9,10 @@ public class Textures {
 	private static int TILESIZE = 32;
 	public BufferedImage health3, health2, health1;
 
-	public BufferedImage[] player = new BufferedImage[3];
+	public BufferedImage[] playerLookRight = new BufferedImage[3];
+	public BufferedImage[] playerLookLeft = new BufferedImage[3];
+	public BufferedImage[] playerTurnLeft = new BufferedImage[6];
+	public BufferedImage[] playerTurnRight = new BufferedImage[6];
 	public BufferedImage[] enemy1 = new BufferedImage[3];
 	public BufferedImage[] enemy1Destroy = new BufferedImage[8];
 	public BufferedImage[] bullet = new BufferedImage[3];
@@ -36,7 +39,11 @@ public class Textures {
 	}
 
 	private void getTextures() {
-		player = loadImages(1, 3);
+		playerLookRight = loadImages(1, 3);
+		playerLookLeft = loadImages(13, 3);
+		playerTurnLeft = loadImages(12, 6);
+		playerTurnRight = loadImages(14, 6);
+
 		bullet = loadImages(2, 3);
 
 		ammunition = loadImages(7, 7);
