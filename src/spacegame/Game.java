@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,11 +23,9 @@ import spacegame.screens.HelpScreen;
 import spacegame.screens.Menu;
 import spacegame.screens.ScoreScreen;
 
-import java.awt.event.MouseEvent;
-
 public class Game extends Canvas implements Runnable {
 
-	public static boolean drawHitboxes = true;
+	public static boolean drawHitboxes = false;
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 12 * 9;
@@ -234,6 +233,7 @@ public class Game extends Canvas implements Runnable {
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
+		frame.setUndecorated(true);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -267,7 +267,7 @@ public class Game extends Canvas implements Runnable {
 
 		}
 
-		else if ((state == STATE.Menu || state == STATE.Score) && key == KeyEvent.VK_SPACE) {
+		else if ((state == STATE.Menu) && key == KeyEvent.VK_SPACE) {
 			if (!c.running)
 				triggerNewGame();
 			else
@@ -339,11 +339,6 @@ public class Game extends Canvas implements Runnable {
 
 	public void mouseReleased(MouseEvent e) {
 
-		if (e.getButton() == MouseEvent.BUTTON1) {
-
-			p.turn();
-		}
-
 		if (state == STATE.Menu) {
 			if (menu.continueButton.getBounds().contains(e.getPoint()) && menu.continueButton.enabled) {
 				left = right = up = down = false;
@@ -366,6 +361,12 @@ public class Game extends Canvas implements Runnable {
 		} else if (state == STATE.Help) {
 			if (helpScreen.mainMenuButton.getBounds().contains(e.getPoint())) {
 				Game.state = STATE.Menu;
+			}
+		} else if (state == STATE.Game) {
+
+			if (e.getButton() == MouseEvent.BUTTON1) {
+
+				p.turn();
 			}
 		}
 

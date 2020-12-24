@@ -69,16 +69,16 @@ public class Controller {
 
       }
       default: {
-        addEntity(new Enemy2(640, 15, 2, tex));
-        addEntity(new Enemy2(720, 45, 2, tex));
-        addEntity(new Enemy2(680, 85, 2, tex));
-        addEntity(new Enemy2(640, 155, 2, tex));
-        addEntity(new Enemy2(720, 185, 2, tex));
-        addEntity(new Enemy2(680, 225, 2, tex));
-        addEntity(new Enemy2(640, 295, 2, tex));
-        addEntity(new Enemy2(720, 325, 2, tex));
-        addEntity(new Enemy2(680, 365, 2, tex));
-        addEntity(new Enemy2(640, 435, 2, tex));
+        addEntity(new Enemy2(640, 15, 1, tex));
+        addEntity(new Enemy2(720, 45, 1, tex));
+        addEntity(new Enemy2(680, 85, 1, tex));
+        addEntity(new Enemy2(640, 155, 1, tex));
+        addEntity(new Enemy2(720, 185, 1, tex));
+        addEntity(new Enemy2(680, 225, 1, tex));
+        addEntity(new Enemy2(640, 295, 1, tex));
+        addEntity(new Enemy2(720, 325, 1, tex));
+        addEntity(new Enemy2(680, 365, 1, tex));
+        addEntity(new Enemy2(640, 435, 1, tex));
       }
     }
 
