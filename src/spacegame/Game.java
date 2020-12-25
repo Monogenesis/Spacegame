@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
 	// private BufferedImage player;
 
 	private Player p;
-	boolean right, left, up, down, isShooting;
+	private boolean right, left, up, down, isShooting;
 	private Controller c;
 	private Textures tex;
 
@@ -144,13 +144,13 @@ public class Game extends Canvas implements Runnable {
 			// mouseControl();
 
 			if (right == true)
-				p.setVelX(5);
+				p.moveRight();
 			if (left == true)
-				p.setVelX(-3);
+				p.moveLeft();
 			if (down == true)
-				p.setVelY(5);
+				p.moveDown();
 			if (up == true)
-				p.setVelY(-5);
+				p.moveUp();
 
 			if (right == false && left == false)
 				p.setVelX(0);
@@ -249,16 +249,12 @@ public class Game extends Canvas implements Runnable {
 		if (state == STATE.Game) {
 
 			if (key == KeyEvent.VK_D) {
-				// p.setVelX(5);
 				right = true;
 			} else if (key == KeyEvent.VK_A) {
-				// p.setVelX(-5);
 				left = true;
 			} else if (key == KeyEvent.VK_S) {
-				// p.setVelY(5);
 				down = true;
 			} else if (key == KeyEvent.VK_W) {
-				// p.setVelY(-5);
 				up = true;
 			} else if (key == KeyEvent.VK_SPACE && !isShooting) {
 				isShooting = true;
@@ -364,10 +360,6 @@ public class Game extends Canvas implements Runnable {
 			}
 		} else if (state == STATE.Game) {
 
-			if (e.getButton() == MouseEvent.BUTTON1) {
-
-				p.turn();
-			}
 		}
 
 	}

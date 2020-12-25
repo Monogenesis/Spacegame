@@ -56,7 +56,8 @@ public class Player extends GameObject {
 	}
 
 	public void init() {
-
+		turning = false;
+		lookingRight = true;
 		x = startXPos;
 		position.setX(x);
 		y = startYPos;
@@ -157,6 +158,31 @@ public class Player extends GameObject {
 		this.velX = velX;
 	}
 
+	public void moveRight() {
+		if (lookingRight) {
+			setVelX(5);
+		} else {
+			turn();
+		}
+	}
+
+	public void moveLeft() {
+		if (!lookingRight) {
+			setVelX(-5);
+		} else {
+			turn();
+		}
+
+	}
+
+	public void moveUp() {
+		setVelY(-5);
+	}
+
+	public void moveDown() {
+		setVelY(5);
+	}
+
 	public double getX() {
 		return x;
 	}
@@ -193,12 +219,12 @@ public class Player extends GameObject {
 
 	public void turn() {
 		if (!turning && lookingRight) {
-			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 4, tex.playerTurnLeft, 0, 0));
+			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 2, tex.playerTurnLeft, 0, 0));
 			setTurning(true);
 		}
 
 		else if (!turning) {
-			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 4, tex.playerTurnRight, 0, 0));
+			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 2, tex.playerTurnRight, 0, 0));
 			setTurning(true);
 		}
 
