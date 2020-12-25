@@ -3,7 +3,6 @@ package spacegame.screens;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.plaf.ColorUIResource;
@@ -20,14 +19,14 @@ public class MenuButton implements Entity {
     private Rectangle worldBounds;
     private Color color;
 
-    private final String text;
+    private String text;
 
     public MenuButton(int x, int y, String text, boolean enabled) {
         this.x = x;
         this.y = y;
         this.text = text;
         this.enabled = enabled;
-        this.bounds = Menu.getTextBounds(Menu.buttonFont, text);
+        this.bounds = MainMenu.getTextBounds(MainMenu.buttonFont, text);
         this.x = (int) ((Game.WIDTH / 2) - (bounds.getBounds().getWidth() / 2));
         this.textHeight = (int) this.bounds.getBounds().getHeight() - 5;
         worldBounds = new Rectangle((int) this.x, (int) this.y, (int) bounds.getBounds().getWidth(),
@@ -48,15 +47,19 @@ public class MenuButton implements Entity {
     @Override
     public void render(Graphics g) {
 
-        g.setFont(Menu.buttonFont);
+        g.setFont(MainMenu.buttonFont);
 
         if (enabled)
-            g.setColor(color != null ? this.color : Menu.enabledColor);
+            g.setColor(color != null ? this.color : MainMenu.enabledColor);
         else
-            g.setColor(Menu.disabledColor);
+            g.setColor(MainMenu.disabledColor);
 
         g.drawString(text, (int) x, (int) y + textHeight);
 
+    }
+
+    public String getText() {
+        return this.text;
     }
 
     @Override

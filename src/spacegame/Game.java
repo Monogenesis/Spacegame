@@ -5,6 +5,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
@@ -19,9 +20,10 @@ import spacegame.controller.Controller;
 import spacegame.controller.KeyInput;
 import spacegame.controller.MouseInput;
 import spacegame.gameobjects.Player;
-import spacegame.screens.HelpScreen;
-import spacegame.screens.Menu;
-import spacegame.screens.ScoreScreen;
+import spacegame.screens.HelpMenu;
+import spacegame.screens.MainMenu;
+import spacegame.screens.MenuButton;
+import spacegame.screens.ScoreMenu;
 
 public class Game extends Canvas implements Runnable {
 
@@ -46,9 +48,9 @@ public class Game extends Canvas implements Runnable {
 	private Controller c;
 	private Textures tex;
 
-	private Menu menu;
-	private ScoreScreen scoreScreen;
-	private HelpScreen helpScreen;
+	private MainMenu mainMenu;
+	private ScoreMenu scoreMenu;
+	private HelpMenu helpMenu;
 
 	public static enum STATE {
 		Game, Menu, Help, Score
@@ -74,9 +76,9 @@ public class Game extends Canvas implements Runnable {
 		p = new Player(200, 200, tex);
 		c = new Controller(this, tex, p);
 		p.setController(c);
-		menu = new Menu(0, 0, c);
-		scoreScreen = new ScoreScreen(c);
-		helpScreen = new HelpScreen(c, helpMenuBackground);
+		mainMenu = new MainMenu("SPACE PRIATES", c);
+		scoreMenu = new ScoreMenu("SCORE", c);
+		helpMenu = new HelpMenu("HELP", c, helpMenuBackground);
 
 	}
 
@@ -167,11 +169,11 @@ public class Game extends Canvas implements Runnable {
 			p.tick();
 			c.tick();
 		} else if (state == STATE.Menu) {
-			menu.tick();
+			// mainMenu.tick();
 		} else if (state == STATE.Score) {
-			scoreScreen.tick();
+			// scoreMenu.tick();
 		} else if (state == STATE.Help) {
-			helpScreen.tick();
+			// helpMenu.tick();
 		}
 	}
 
@@ -207,11 +209,11 @@ public class Game extends Canvas implements Runnable {
 			p.render(g);
 			c.render(g);
 		} else if (state == STATE.Menu) {
-			menu.render(g);
+			mainMenu.render(g);
 		} else if (state == STATE.Score) {
-			scoreScreen.render(g);
+			scoreMenu.render(g);
 		} else if (state == STATE.Help) {
-			helpScreen.render(g);
+			helpMenu.render(g);
 		}
 		////////////////
 
@@ -290,6 +292,7 @@ public class Game extends Canvas implements Runnable {
 
 	private void triggerNewGame() {
 		// pressed playbutton
+
 		left = right = up = down = false;
 		Game.state = Game.STATE.Game;
 		p.init();
@@ -298,6 +301,7 @@ public class Game extends Canvas implements Runnable {
 		c.levelCounter = 0;
 		Player.score = 0;
 		c.running = true;
+		mainMenu.getContinueButton().enabled = c.running ? true : false;
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -334,29 +338,62 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mouseReleased(MouseEvent e) {
-
-		if (state == STATE.Menu) {
-			if (menu.continueButton.getBounds().contains(e.getPoint()) && menu.continueButton.enabled) {
-				left = right = up = down = false;
-				Game.state = Game.STATE.Game;
-			} else if (menu.playButton.getBounds().contains(e.getPoint()) && menu.playButton.enabled) {
-				triggerNewGame();
-			} else if (menu.helpButton.getBounds().contains(e.getPoint()) && menu.helpButton.enabled) {
-				// pressed help button
-				left = right = up = down = false;
-				Game.state = Game.STATE.Help;
-			} else if (menu.quitButton.getBounds().contains(e.getPoint()) && menu.quitButton.enabled) {
-				System.exit(1);
+		Point mousePos = e.getPoint();
+		MenuButton menuButton;
+		noHit: if (state == STATE.Menu) {
+			menuButton = mainMenu.getClickedButton(mousePos);
+			if (menuButton == null || !menuButton.enabled) {
+				break noHit;
+			}
+			switch (menuButton.getText()) {
+				case MainMenu.continueText: {
+					left = right = up = down = false;
+					Game.state = Game.STATE.Game;
+					break;
+				}
+				case MainMenu.newGameText: {
+					triggerNewGame();
+					break;
+				}
+				case MainMenu.helpText: {
+					left = right = up = down = false;
+					Game.state = Game.STATE.Help;
+					break;
+				}
+				case MainMenu.quitText: {
+					System.exit(1);
+					break;
+				}
+				default:
 			}
 		} else if (state == STATE.Score) {
-			if (scoreScreen.restartButton.getBounds().contains(e.getPoint())) {
-				triggerNewGame();
-			} else if (scoreScreen.mainMenuButton.getBounds().contains(e.getPoint())) {
-				Game.state = Game.STATE.Menu;
+			menuButton = scoreMenu.getClickedButton(mousePos);
+			if (menuButton == null || !menuButton.enabled) {
+				break noHit;
+			}
+			switch (menuButton.getText()) {
+				case ScoreMenu.restartText: {
+					triggerNewGame();
+					break;
+				}
+				case ScoreMenu.menuText: {
+					mainMenu.getContinueButton().enabled = c.running ? true : false;
+					Game.state = STATE.Menu;
+					break;
+				}
+				default:
 			}
 		} else if (state == STATE.Help) {
-			if (helpScreen.mainMenuButton.getBounds().contains(e.getPoint())) {
-				Game.state = STATE.Menu;
+			menuButton = helpMenu.getClickedButton(mousePos);
+			if (menuButton == null || !menuButton.enabled) {
+				break noHit;
+			}
+			switch (menuButton.getText()) {
+				case HelpMenu.menuText: {
+					Game.state = STATE.Menu;
+					break;
+				}
+				default:
 			}
 		} else if (state == STATE.Game) {
 
