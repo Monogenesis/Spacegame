@@ -26,7 +26,7 @@ import spacegame.screens.MenuButton;
 import spacegame.screens.ScoreMenu;
 
 public class Game extends Canvas implements Runnable {
-
+	public static JFrame frame;
 	public static boolean drawHitboxes = false;
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640;
@@ -169,11 +169,11 @@ public class Game extends Canvas implements Runnable {
 			p.tick();
 			c.tick();
 		} else if (state == STATE.Menu) {
-			// mainMenu.tick();
+			mainMenu.tick();
 		} else if (state == STATE.Score) {
-			// scoreMenu.tick();
+			scoreMenu.tick();
 		} else if (state == STATE.Help) {
-			// helpMenu.tick();
+			helpMenu.tick();
 		}
 	}
 
@@ -230,7 +230,7 @@ public class Game extends Canvas implements Runnable {
 		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
-		JFrame frame = new JFrame(Game.TITLE);
+		frame = new JFrame(Game.TITLE);
 		frame.add(game);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -338,6 +338,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mouseReleased(MouseEvent e) {
+
 		Point mousePos = e.getPoint();
 		MenuButton menuButton;
 		noHit: if (state == STATE.Menu) {

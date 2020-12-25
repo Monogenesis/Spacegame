@@ -1,18 +1,22 @@
 package spacegame.screens;
 
-import java.awt.Point;
+import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Arrays;
+
+import org.w3c.dom.events.MouseEvent;
 
 import spacegame.Game;
 import spacegame.controller.Controller;
+import spacegame.controller.MouseInput;
 import spacegame.gameobjects.Entity;
 
 public abstract class Menu implements Entity {
@@ -23,6 +27,7 @@ public abstract class Menu implements Entity {
     protected int labelTextPos;
     protected Color labelColor;
     protected Font font;
+    protected MenuButton selectedButton;
 
     public Menu(String label, Controller controller, Font font, Color labelColor) {
         this.label = label;
@@ -47,8 +52,10 @@ public abstract class Menu implements Entity {
 
     @Override
     public void tick() {
-        // TODO Auto-generated method stub
-
+        int mouseX = (int) (MouseInfo.getPointerInfo().getLocation().getX() - Game.frame.getLocationOnScreen().getX());
+        int mouseY = (int) (MouseInfo.getPointerInfo().getLocation().getY() - Game.frame.getLocationOnScreen().getY());
+        Point pos = new Point(mouseX, mouseY);
+        selectedButton = getClickedButton(pos);
     }
 
     @Override
@@ -58,6 +65,10 @@ public abstract class Menu implements Entity {
         g.drawString(label, labelTextPos, 100);
         for (MenuButton button : menuButtons) {
             button.render(g);
+        }
+        if (selectedButton != null) {
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.draw(selectedButton.getBounds());
         }
 
     }

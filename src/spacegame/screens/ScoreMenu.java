@@ -23,7 +23,7 @@ public class ScoreMenu extends Menu {
 
     @Override
     public void tick() {
-
+        super.tick();
     }
 
     @Override

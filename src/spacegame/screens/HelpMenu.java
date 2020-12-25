@@ -26,7 +26,7 @@ public class HelpMenu extends Menu {
 
     @Override
     public void tick() {
-
+        super.tick();
     }
 
     @Override

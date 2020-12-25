@@ -46,7 +46,7 @@ public class MainMenu extends Menu {
 	}
 
 	public void tick() {
-
+		super.tick();
 	}
 
 	public MenuButton getContinueButton() {
