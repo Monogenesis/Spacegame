@@ -19,7 +19,6 @@ public class PlayerTurnAnimation extends Animation implements Entity {
         this.yOffset = yOffset;
         this.x = x;
         this.y = y;
-
     }
 
     @Override

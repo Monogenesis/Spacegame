@@ -139,11 +139,6 @@ public class Game extends Canvas implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			// System.out.printf("Mousecontroll: %s, right: %s, left: %s, up: %s,
-			// down:%s%n", mouseControl, right, left,
-			// up, down);
-			// if (mouseControl)
-			// mouseControl();
 
 			if (right == true)
 				p.moveRight();

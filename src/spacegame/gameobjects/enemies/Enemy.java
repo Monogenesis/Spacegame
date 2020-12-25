@@ -19,7 +19,7 @@ public class Enemy extends GameObject {
 
     @Override
     public void destroySelf(Entity reason) {
-        enemyCounter--;
+        decrementEnemyCounter();
         super.destroySelf(reason);
     }
 
@@ -27,5 +27,9 @@ public class Enemy extends GameObject {
     public void render(Graphics g) {
         super.render(g);
         anima.drawAnimation(g, getX(), getY());
+    }
+
+    public static void decrementEnemyCounter() {
+        enemyCounter--;
     }
 }

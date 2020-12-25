@@ -107,7 +107,7 @@ public class Controller {
       if (entities.get(i) != null) {
         if (!maxEntityBounds.contains(new Point((int) entities.get(i).getX(), (int) entities.get(i).getY()))) {
           if (entities.get(i) instanceof Enemy) {
-            Enemy.enemyCounter--;
+            Enemy.decrementEnemyCounter();
           }
           removeEntity(entities.get(i));
 
@@ -127,8 +127,10 @@ public class Controller {
   }
 
   public void render(Graphics g) {
-    for (Entity entity : entities) {
-      entity.render(g);
+    for (int i = 0; i < entities.size(); i++) {
+      if (entities.get(i) != null) {
+        entities.get(i).render(g);
+      }
     }
   }
 
