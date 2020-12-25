@@ -21,8 +21,7 @@ public class Controller {
   public static LinkedList<Entity> entities = new LinkedList<Entity>();
   public static int time;
   public static Rectangle maxEntityBounds = new Rectangle(-200, -200, Game.WIDTH + 400, Game.HEIGHT + 400);
-  private Entity entity;
-
+  static boolean allEnemiesGone = true;
   private Game game;
 
   private Textures tex;
@@ -101,24 +100,19 @@ public class Controller {
   }
 
   public void tick() {
-
-    boolean allEnemiesGone = true;
-    for (Entity entity : entities) {
-      if (entity instanceof Enemy) {
-        allEnemiesGone = false;
-      }
-    }
-    if (allEnemiesGone) {
+    if (Enemy.enemyCounter == 0) {
       loadLevel(1 + levelCounter++);
     }
-
     for (int i = 0; i < entities.size(); i++) {
-      if (entity != null) {
-        if (!maxEntityBounds.contains(new Point((int) entity.getX(), (int) entity.getY()))) {
-          removeEntity(entity);
+      if (entities.get(i) != null) {
+        if (!maxEntityBounds.contains(new Point((int) entities.get(i).getX(), (int) entities.get(i).getY()))) {
+          if (entities.get(i) instanceof Enemy) {
+            Enemy.enemyCounter--;
+          }
+          removeEntity(entities.get(i));
+
         } else {
-          entity = entities.get(i);
-          entity.tick();
+          entities.get(i).tick();
         }
       }
 
@@ -133,12 +127,9 @@ public class Controller {
   }
 
   public void render(Graphics g) {
-
-    for (int i = 0; i < entities.size(); i++) {
-      entity = entities.get(i);
+    for (Entity entity : entities) {
       entity.render(g);
     }
-
   }
 
   public void addEntity(Entity block) {

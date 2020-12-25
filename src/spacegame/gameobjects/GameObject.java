@@ -51,8 +51,9 @@ public class GameObject implements Entity {
 	}
 
 	public void destroySelf(Entity reason) {
-		if (reason instanceof Bullet)
+		if (reason instanceof Bullet) {
 			Player.score += scoreValue;
+		}
 	}
 
 	public double getY() {
