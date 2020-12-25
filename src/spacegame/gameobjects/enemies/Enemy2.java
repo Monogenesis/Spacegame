@@ -39,7 +39,7 @@ public class Enemy2 extends Enemy {
     public void destroySelf(Entity reason) {
 
         Controller.entities.add(new DestroyAnimation(x, y, 5, tex.enemy2Destroy, 0, 0));
-        Controller.entities.remove(this);
+
         super.destroySelf(reason);
     }
 }

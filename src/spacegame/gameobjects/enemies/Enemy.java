@@ -6,6 +6,8 @@ import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.gameobjects.Entity;
 import spacegame.gameobjects.GameObject;
+import spacegame.gameobjects.Player;
+import spacegame.gameobjects.projectiles.Bullet;
 
 public class Enemy extends GameObject {
 
@@ -20,6 +22,9 @@ public class Enemy extends GameObject {
     @Override
     public void destroySelf(Entity reason) {
         decrementEnemyCounter();
+        if (reason instanceof Bullet) {
+            Player.score += scoreValue;
+        }
         super.destroySelf(reason);
     }
 

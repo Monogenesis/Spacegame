@@ -127,7 +127,8 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				// System.out.println(updates + " Ticks, Fps " + frames);
+				// System.out.println(updates + " Ticks, Fps " + frames + ", entities: " +
+				// Controller.entities.size());
 				updates = 0;
 				frames = 0;
 				if (state == STATE.Game)

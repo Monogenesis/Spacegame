@@ -1,12 +1,13 @@
 package spacegame.gameobjects;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
 import spacegame.Game;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
-import spacegame.gameobjects.projectiles.Bullet;
+import spacegame.controller.Controller;
 
 public class GameObject implements Entity {
 
@@ -44,16 +45,13 @@ public class GameObject implements Entity {
 		if (Game.drawHitboxes) {
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.draw(this.getHitbox());
-			// g.drawRect(getHitbox().x, getHitbox().y, getHitbox().width,
-			// getHitbox().height);
 		}
 
 	}
 
 	public void destroySelf(Entity reason) {
-		if (reason instanceof Bullet) {
-			Player.score += scoreValue;
-		}
+
+		Controller.entities.remove(this);
 	}
 
 	public double getY() {

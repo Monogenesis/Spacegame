@@ -32,7 +32,7 @@ public class Bullet extends Projectile {
 				Enemy tempEnemy = (Enemy) Controller.entities.get(i);
 				if (collision(getHitbox(), tempEnemy.getHitbox())) {
 					tempEnemy.destroySelf(this);
-					Controller.entities.remove(this);
+					destroySelf(this);
 				}
 			}
 
