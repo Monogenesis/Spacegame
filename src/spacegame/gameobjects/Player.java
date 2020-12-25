@@ -219,15 +219,14 @@ public class Player extends GameObject {
 
 	public void turn() {
 		if (!turning && lookingRight) {
-			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 2, tex.playerTurnLeft, 0, 0));
+			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 3, tex.playerTurnLeft, 0, 0));
 			setTurning(true);
-		}
-
-		else if (!turning) {
-			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 2, tex.playerTurnRight, 0, 0));
+			changeDirection();
+		} else if (!turning) {
+			Controller.entities.add(new PlayerTurnAnimation(getX(), getY(), 3, tex.playerTurnRight, 0, 0));
 			setTurning(true);
+			changeDirection();
 		}
-
 	}
 
 	public void setTurning(boolean turning) {

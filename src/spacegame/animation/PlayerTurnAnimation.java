@@ -28,7 +28,7 @@ public class PlayerTurnAnimation extends Animation implements Entity {
 
         if (getCount() == getFrames()) {
             Player.player.setTurning(false);
-            Player.player.changeDirection();
+            // Player.player.changeDirection();
             Controller.entities.remove(this);
         }
     }

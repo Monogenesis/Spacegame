@@ -76,7 +76,7 @@ public class Game extends Canvas implements Runnable {
 		p = new Player(200, 200, tex);
 		c = new Controller(this, tex, p);
 		p.setController(c);
-		mainMenu = new MainMenu("SPACE PRIATES", c);
+		mainMenu = new MainMenu("SPACE PIRATES", c);
 		scoreMenu = new ScoreMenu("SCORE", c);
 		helpMenu = new HelpMenu("HELP", c, helpMenuBackground);
 
@@ -248,30 +248,6 @@ public class Game extends Canvas implements Runnable {
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		if (state == STATE.Game) {
-
-			if (key == KeyEvent.VK_D) {
-				right = true;
-			} else if (key == KeyEvent.VK_A) {
-				left = true;
-			} else if (key == KeyEvent.VK_S) {
-				down = true;
-			} else if (key == KeyEvent.VK_W) {
-				up = true;
-			} else if (key == KeyEvent.VK_SPACE && !isShooting) {
-				isShooting = true;
-				p.shoot();
-			}
-
-		}
-
-		else if ((state == STATE.Menu) && key == KeyEvent.VK_SPACE) {
-			if (!c.running)
-				triggerNewGame();
-			else
-				state = STATE.Game;
-		}
-
 		if (key == KeyEvent.VK_ESCAPE) {
 			switch (state) {
 				case Menu: {
@@ -280,6 +256,13 @@ public class Game extends Canvas implements Runnable {
 					break;
 				}
 				case Game:
+					Game.state = STATE.Menu;
+					break;
+				case Score: {
+					mainMenu.getContinueButton().enabled = c.running ? true : false;
+					Game.state = STATE.Menu;
+				}
+					break;
 				case Help: {
 					state = STATE.Menu;
 				}
@@ -287,12 +270,58 @@ public class Game extends Canvas implements Runnable {
 					state = STATE.Menu;
 					break;
 			}
-		}
+		} else
+			switch (Game.state) {
+				case Game: {
+					switch (key) {
+						case KeyEvent.VK_D: {
+							right = true;
+							break;
+						}
+						case KeyEvent.VK_A: {
+							left = true;
+							break;
+						}
+						case KeyEvent.VK_S: {
+							down = true;
+							break;
+						}
+						case KeyEvent.VK_W: {
+							up = true;
+							break;
+						}
+						case KeyEvent.VK_SPACE: {
+							if (!isShooting) {
+								isShooting = true;
+								p.shoot();
+							}
+							break;
+						}
+					}
+					break;
+				}
+				case Menu:
+					switch (key) {
+						case KeyEvent.VK_SPACE: {
+							if (!c.running)
+								triggerNewGame();
+							else
+								state = STATE.Game;
+							break;
+						}
+					}
+					break;
+				case Help:
+					break;
+				case Score:
+					break;
+				default:
+					break;
+			}
+
 	}
 
 	private void triggerNewGame() {
-		// pressed playbutton
-
 		left = right = up = down = false;
 		Game.state = Game.STATE.Game;
 		p.init();
@@ -309,16 +338,12 @@ public class Game extends Canvas implements Runnable {
 
 		if (state == STATE.Game) {
 			if (key == KeyEvent.VK_D) {
-				// p.setVelX(0);
 				right = false;
 			} else if (key == KeyEvent.VK_A) {
-				// p.setVelX(0);
 				left = false;
 			} else if (key == KeyEvent.VK_S) {
-				// p.setVelY(0);
 				down = false;
 			} else if (key == KeyEvent.VK_W) {
-				// p.setVelY(0);
 				up = false;
 			} else if (key == KeyEvent.VK_SPACE && isShooting) {
 				isShooting = false;
@@ -338,7 +363,6 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void mouseReleased(MouseEvent e) {
-
 		Point mousePos = e.getPoint();
 		MenuButton menuButton;
 		noHit: if (state == STATE.Menu) {
