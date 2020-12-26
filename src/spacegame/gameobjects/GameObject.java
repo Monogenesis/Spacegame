@@ -34,6 +34,11 @@ public class GameObject implements Entity {
 		anima = animation;
 	}
 
+	public void moveTo(int x, int y) {
+		setX(x);
+		setY(y);
+	}
+
 	public void tick() {
 		x -= speed;
 		if (x < -32)

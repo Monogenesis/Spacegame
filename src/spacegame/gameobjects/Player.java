@@ -20,8 +20,8 @@ public class Player extends GameObject {
 	private double x;
 	private double y;
 
-	private double velX = 0;
-	private double velY = 0;
+	private int velX = 0;
+	private int velY = 0;
 
 	private boolean lookingRight = true;
 	private boolean turning = false;
@@ -46,6 +46,19 @@ public class Player extends GameObject {
 		player = this;
 		leftAnimation = new Animation(4, tex.playerLookLeft);
 
+	}
+
+	@Override
+	public void moveTo(int x, int y) {
+		if (lookingRight && x < 0) {
+			turn();
+		} else if (!lookingRight && x > 0) {
+			turn();
+		}
+		this.x += x;
+		this.y += y;
+		position.setX(this.x);
+		position.setY(this.y);
 	}
 
 	public void shoot() {
@@ -150,12 +163,12 @@ public class Player extends GameObject {
 		return new Rectangle((int) x + hitboxXOffset, (int) y + hitboxYOffset, hitboxWidth, hitboxHeight);
 	}
 
-	public void setVelY(double velY) {
-		this.velY = velY;
+	public int setVelY(int velY) {
+		return this.velY = velY;
 	}
 
-	public void setVelX(double velX) {
-		this.velX = velX;
+	public int setVelX(int velX) {
+		return this.velX = velX;
 	}
 
 	public void moveRight() {

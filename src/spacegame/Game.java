@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -19,6 +20,9 @@ import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.controller.KeyInput;
 import spacegame.controller.MouseInput;
+import spacegame.controller.commands.Command;
+import spacegame.controller.commands.MoveUnitCommand;
+import spacegame.gameobjects.GameObject;
 import spacegame.gameobjects.Player;
 import spacegame.gameobjects.enemies.Enemy;
 import spacegame.screens.HelpMenu;
@@ -118,6 +122,9 @@ public class Game extends Canvas implements Runnable {
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			if (delta >= 1) {
+				for (Command cmd : handleInput()) {
+					cmd.execute();
+				}
 				tick();
 				updates++;
 				delta--;
@@ -139,26 +146,52 @@ public class Game extends Canvas implements Runnable {
 				e.printStackTrace();
 			}
 
-			if (right == true)
-				p.moveRight();
-			if (left == true)
-				p.moveLeft();
-			if (down == true)
-				p.moveDown();
-			if (up == true)
-				p.moveUp();
+			// if (right == true)
+			// p.moveRight();
+			// if (left == true)
+			// p.moveLeft();
+			// if (down == true)
+			// p.moveDown();
+			// if (up == true)
+			// p.moveUp();
 
-			if (right == false && left == false)
-				p.setVelX(0);
-			if (down == false && up == false)
-				p.setVelY(0);
+			// if (right == false && left == false)
+			// p.setVelX(0);
+			// if (down == false && up == false)
+			// p.setVelY(0);
 		}
 
 		stop();
 	}
 
-	private void tick() {
+	private ArrayList<Command> handleInput() {
+		ArrayList<Command> commands = new ArrayList<>();
+		GameObject unit = p;
 
+		if (up) {
+			// int destY = (int) unit.getY() - 4;
+			// commands.add(new MoveUnitCommand(unit, (int) unit.getX(), destY));
+			commands.add(new MoveUnitCommand(unit, 0, -4));
+
+		} else if (down) {
+			// int destY = (int) unit.getY() + 4;
+			// commands.add(new MoveUnitCommand(unit, (int) unit.getX(), destY));
+			commands.add(new MoveUnitCommand(unit, 0, 4));
+		}
+		if (left) {
+			// int destX = (int) unit.getX() - 5;
+			// commands.add(new MoveUnitCommand(unit, destX, (int) unit.getY()));
+			commands.add(new MoveUnitCommand(unit, -5, 0));
+		} else if (right) {
+			// int destX = (int) unit.getX() + 5;
+			// commands.add(new MoveUnitCommand(unit, destX, (int) unit.getY()));
+			commands.add(new MoveUnitCommand(unit, 5, 0));
+		}
+		return commands;
+	}
+
+	private void tick() {
+		backgroundPos += 0.4;
 		if (state == STATE.Game) {
 			p.tick();
 			c.tick();
@@ -172,7 +205,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void render() {
-		backgroundPos += 0.2;
+
 		if ((int) backgroundPos == getWidth()) {
 			backgroundPos = 0;
 		}
@@ -236,12 +269,22 @@ public class Game extends Canvas implements Runnable {
 		game.start();
 	}
 
-	public BufferedImage getSpriteSheet() {
-		return this.spriteSheet;
+	private void triggerNewGame() {
+		left = right = up = down = false;
+		Game.state = Game.STATE.Game;
+		p.init();
+		Controller.entities.clear();
+		Enemy.enemyCounter = 0;
+		Controller.time = 0;
+		c.levelCounter = 0;
+		Player.score = 0;
+		c.running = true;
+		mainMenu.getContinueButton().enabled = c.running ? true : false;
 	}
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
+
 		if (key == KeyEvent.VK_ESCAPE) {
 			switch (state) {
 				case Menu: {
@@ -313,19 +356,6 @@ public class Game extends Canvas implements Runnable {
 					break;
 			}
 
-	}
-
-	private void triggerNewGame() {
-		left = right = up = down = false;
-		Game.state = Game.STATE.Game;
-		p.init();
-		Controller.entities.clear();
-		Enemy.enemyCounter = 0;
-		Controller.time = 0;
-		c.levelCounter = 0;
-		Player.score = 0;
-		c.running = true;
-		mainMenu.getContinueButton().enabled = c.running ? true : false;
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -421,4 +451,7 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
+	public BufferedImage getSpriteSheet() {
+		return this.spriteSheet;
+	}
 }
