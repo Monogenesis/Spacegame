@@ -20,6 +20,7 @@ import spacegame.controller.Controller;
 import spacegame.controller.KeyInput;
 import spacegame.controller.MouseInput;
 import spacegame.gameobjects.Player;
+import spacegame.gameobjects.enemies.Enemy;
 import spacegame.screens.HelpMenu;
 import spacegame.screens.MainMenu;
 import spacegame.screens.MenuButton;
@@ -121,14 +122,11 @@ public class Game extends Canvas implements Runnable {
 				updates++;
 				delta--;
 			}
-
 			render();
 			frames++;
-
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				// System.out.println(updates + " Ticks, Fps " + frames + ", entities: " +
-				// Controller.entities.size());
+				System.out.println(updates + " Ticks, Fps " + frames + ", entities: " + Controller.entities.size());
 				updates = 0;
 				frames = 0;
 				if (state == STATE.Game)
@@ -322,6 +320,7 @@ public class Game extends Canvas implements Runnable {
 		Game.state = Game.STATE.Game;
 		p.init();
 		Controller.entities.clear();
+		Enemy.enemyCounter = 0;
 		Controller.time = 0;
 		c.levelCounter = 0;
 		Player.score = 0;
