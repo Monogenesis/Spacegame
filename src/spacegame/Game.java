@@ -22,6 +22,7 @@ import spacegame.controller.KeyInput;
 import spacegame.controller.MouseInput;
 import spacegame.controller.commands.Command;
 import spacegame.controller.commands.MoveUnitCommand;
+import spacegame.controller.commands.ShootCommand;
 import spacegame.gameobjects.GameObject;
 import spacegame.gameobjects.Player;
 import spacegame.gameobjects.enemies.Enemy;
@@ -49,7 +50,7 @@ public class Game extends Canvas implements Runnable {
 	// private BufferedImage player;
 
 	private Player p;
-	private boolean right, left, up, down, isShooting;
+	private boolean right, left, up, down, isShooting = false;
 	private Controller c;
 	private Textures tex;
 
@@ -145,20 +146,6 @@ public class Game extends Canvas implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
-			// if (right == true)
-			// p.moveRight();
-			// if (left == true)
-			// p.moveLeft();
-			// if (down == true)
-			// p.moveDown();
-			// if (up == true)
-			// p.moveUp();
-
-			// if (right == false && left == false)
-			// p.setVelX(0);
-			// if (down == false && up == false)
-			// p.setVelY(0);
 		}
 
 		stop();
@@ -187,6 +174,11 @@ public class Game extends Canvas implements Runnable {
 			// commands.add(new MoveUnitCommand(unit, destX, (int) unit.getY()));
 			commands.add(new MoveUnitCommand(unit, 5, 0));
 		}
+		if (isShooting) {
+			isShooting = false;
+			commands.add(new ShootCommand(p));
+		}
+
 		return commands;
 	}
 
@@ -330,7 +322,6 @@ public class Game extends Canvas implements Runnable {
 						case KeyEvent.VK_SPACE: {
 							if (!isShooting) {
 								isShooting = true;
-								p.shoot();
 							}
 							break;
 						}
