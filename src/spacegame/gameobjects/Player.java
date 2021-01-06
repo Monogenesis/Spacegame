@@ -8,6 +8,8 @@ import spacegame.animation.PlayerTurnAnimation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.controller.Point;
+import spacegame.controller.filehandler.HighscoreLoader;
+import spacegame.controller.helper.Score;
 import spacegame.gameobjects.enemies.Enemy;
 import spacegame.gameobjects.projectiles.Bullet;
 
@@ -135,6 +137,8 @@ public class Player extends GameObject {
 	}
 
 	private void resetPlayer() {
+		new Score(score);
+		HighscoreLoader.updateHighscores();
 		init();
 		controller.restartlevel();
 	}

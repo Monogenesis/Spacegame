@@ -23,6 +23,7 @@ import spacegame.controller.MouseInput;
 import spacegame.controller.commands.Command;
 import spacegame.controller.commands.MoveUnitCommand;
 import spacegame.controller.commands.ShootCommand;
+import spacegame.controller.filehandler.HighscoreLoader;
 import spacegame.gameobjects.GameObject;
 import spacegame.gameobjects.Player;
 import spacegame.gameobjects.enemies.Enemy;
@@ -259,6 +260,8 @@ public class Game extends Canvas implements Runnable {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		game.start();
+
+		HighscoreLoader.readHighscore();
 	}
 
 	private void triggerNewGame() {
