@@ -14,7 +14,7 @@ public class HighscoreLoader {
 
     private static String filePath = "highscore.txt";
 
-    public static void updateHighscores() {
+    public static void saveHighscores() {
         try (DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filePath)));) {
 
             for (Score score : Score.scores.values()) {
@@ -28,7 +28,7 @@ public class HighscoreLoader {
 
     }
 
-    public static void readHighscore() {
+    public static void loadHighscore() {
         try (DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));) {
 
             while (true) {

@@ -84,31 +84,29 @@ public abstract class Menu implements Entity {
 
     @Override
     public Rectangle getBounds() {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
     @Override
     public double getX() {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public void setX(double x) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public double getY() {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public void setY(double y) {
-        // TODO Auto-generated method stub
 
     }
 

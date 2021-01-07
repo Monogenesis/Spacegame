@@ -3,14 +3,9 @@ package spacegame.screens;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.plaf.ColorUIResource;
 
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
-import spacegame.Game;
 import spacegame.controller.Controller;
 
 public class MainMenu extends Menu {
@@ -23,11 +18,13 @@ public class MainMenu extends Menu {
 
 	public final static String continueText = "CONTINUE";
 	public final static String newGameText = "NEW GAME";
+	public final static String highscoresText = "HIGHSCORES";
 	public final static String helpText = "HELP";
 	public final static String quitText = "QUIT";
 
 	private MenuButton continueButton;
 	private MenuButton newGameButton;
+	private MenuButton highscoresButton;
 	private MenuButton helpButton;
 	private MenuButton quitButton;
 
@@ -36,8 +33,10 @@ public class MainMenu extends Menu {
 		;
 		menuButtons.add(continueButton = new MenuButton(0, 150, continueText, false));
 		menuButtons.add(newGameButton = new MenuButton(0, 210, newGameText, true));
-		menuButtons.add(helpButton = new MenuButton(0, 270, helpText, true));
-		menuButtons.add(quitButton = new MenuButton(0, 330, quitText, true));
+		menuButtons.add(highscoresButton = new MenuButton(0, 270, highscoresText, true));
+		menuButtons.add(helpButton = new MenuButton(0, 330, helpText, true));
+		menuButtons.add(quitButton = new MenuButton(0, 390, quitText, true));
+
 	}
 
 	public void render(Graphics g) {
@@ -47,6 +46,10 @@ public class MainMenu extends Menu {
 
 	public void tick() {
 		super.tick();
+	}
+
+	public MenuButton getHighscoreButton() {
+		return this.highscoresButton;
 	}
 
 	public MenuButton getContinueButton() {

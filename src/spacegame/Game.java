@@ -261,7 +261,7 @@ public class Game extends Canvas implements Runnable {
 		frame.setVisible(true);
 		game.start();
 
-		HighscoreLoader.readHighscore();
+		HighscoreLoader.loadHighscore();
 	}
 
 	private void triggerNewGame() {

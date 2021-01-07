@@ -91,7 +91,6 @@ public class Player extends GameObject {
 	}
 
 	public void tick() {
-
 		x += velX;
 		y += velY;
 		position.setX(x);
@@ -138,7 +137,7 @@ public class Player extends GameObject {
 
 	private void resetPlayer() {
 		new Score(score);
-		HighscoreLoader.updateHighscores();
+		HighscoreLoader.saveHighscores();
 		init();
 		controller.restartlevel();
 	}
