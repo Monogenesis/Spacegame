@@ -399,6 +399,10 @@ public class Game extends Canvas implements Runnable {
 					triggerNewGame();
 					break;
 				}
+				case MainMenu.highscoresText: {
+					Game.state = Game.STATE.Score;
+					break;
+				}
 				case MainMenu.helpText: {
 					left = right = up = down = false;
 					Game.state = Game.STATE.Help;
@@ -416,10 +420,10 @@ public class Game extends Canvas implements Runnable {
 				break noHit;
 			}
 			switch (menuButton.getText()) {
-				case ScoreMenu.restartText: {
-					triggerNewGame();
-					break;
-				}
+				// case ScoreMenu.restartText: {
+				// triggerNewGame();
+				// break;
+				// }
 				case ScoreMenu.menuText: {
 					mainMenu.getContinueButton().enabled = c.running ? true : false;
 					Game.state = STATE.Menu;

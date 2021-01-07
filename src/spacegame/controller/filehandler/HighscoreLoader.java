@@ -17,9 +17,11 @@ public class HighscoreLoader {
     public static void saveHighscores() {
         try (DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filePath)));) {
 
-            for (Score score : Score.scores.values()) {
-                out.writeInt(score.value);
-                out.writeUTF(score.date);
+            for (int i = 0; i < Score.scores.size(); i++) {
+                if (i == 10)
+                    break;
+                out.writeInt(Score.scores.get(i).value);
+                out.writeUTF(Score.scores.get(i).date);
             }
 
         } catch (IOException e) {
@@ -38,7 +40,7 @@ public class HighscoreLoader {
         } catch (IOException e) {
             System.out.println("FILE END!");
         }
-        for (Score score : Score.scores.values()) {
+        for (Score score : Score.scores) {
             System.out.println(score);
         }
     }
