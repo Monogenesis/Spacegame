@@ -1,7 +1,5 @@
 package spacegame.gameobjects.enemies;
 
-import java.awt.Rectangle;
-
 import spacegame.animation.Animation;
 import spacegame.animation.DestroyAnimation;
 import spacegame.animation.Textures;

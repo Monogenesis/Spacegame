@@ -69,6 +69,7 @@ public class Game extends Canvas implements Runnable {
 
 		requestFocus();
 		BufferedImageLoader loader = new BufferedImageLoader();
+		HighscoreLoader.loadHighscore();
 
 		try {
 			spriteSheet = loader.loadImage("/resources/SpriteSheet.png");
@@ -261,7 +262,6 @@ public class Game extends Canvas implements Runnable {
 		frame.setVisible(true);
 		game.start();
 
-		HighscoreLoader.loadHighscore();
 	}
 
 	private void triggerNewGame() {

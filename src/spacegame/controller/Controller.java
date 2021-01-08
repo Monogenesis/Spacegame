@@ -15,6 +15,7 @@ import spacegame.gameobjects.Player;
 import spacegame.gameobjects.enemies.Enemy;
 import spacegame.gameobjects.enemies.Enemy1;
 import spacegame.gameobjects.enemies.Enemy2;
+import spacegame.gameobjects.enemies.Enemy3;
 
 public class Controller {
 
@@ -32,7 +33,7 @@ public class Controller {
   public Controller(Game game, Textures tex, Player p) {
     this.game = game;
     this.tex = tex;
-    // loadLevel(1);
+    // loadLevel(3);
     this.p = p;
   }
 
@@ -41,16 +42,27 @@ public class Controller {
 
     switch (wave) {
       case 1: {
-        addEntity(new Enemy1(640, 15, 1, tex));
-        addEntity(new Enemy1(720, 45, 1, tex));
-        addEntity(new Enemy1(680, 85, 1, tex));
-        addEntity(new Enemy1(640, 155, 1, tex));
-        addEntity(new Enemy1(720, 185, 1, tex));
-        addEntity(new Enemy1(680, 225, 1, tex));
-        addEntity(new Enemy1(640, 295, 1, tex));
-        addEntity(new Enemy1(720, 325, 1, tex));
-        addEntity(new Enemy1(680, 365, 1, tex));
-        addEntity(new Enemy1(640, 435, 1, tex));
+        // addEntity(new Enemy1(640, 15, 1, tex));
+        // addEntity(new Enemy1(720, 45, 1, tex));
+        // addEntity(new Enemy1(680, 85, 1, tex));
+        // addEntity(new Enemy1(640, 155, 1, tex));
+        // addEntity(new Enemy1(720, 185, 1, tex));
+        // addEntity(new Enemy1(680, 225, 1, tex));
+        // addEntity(new Enemy1(640, 295, 1, tex));
+        // addEntity(new Enemy1(720, 325, 1, tex));
+        // addEntity(new Enemy1(680, 365, 1, tex));
+        // addEntity(new Enemy1(640, 435, 1, tex));
+
+        addEntity(new Enemy3(640, 15, 3, tex));
+        addEntity(new Enemy3(720, 45, 3, tex));
+        addEntity(new Enemy3(680, 85, 3, tex));
+        addEntity(new Enemy3(640, 155, 3, tex));
+        addEntity(new Enemy3(720, 185, 3, tex));
+        addEntity(new Enemy3(680, 225, 3, tex));
+        addEntity(new Enemy3(640, 295, 3, tex));
+        addEntity(new Enemy3(720, 325, 3, tex));
+        addEntity(new Enemy3(680, 365, 3, tex));
+        addEntity(new Enemy3(640, 435, 3, tex));
         break;
       }
       case 2: {
@@ -67,17 +79,31 @@ public class Controller {
         break;
 
       }
+      case 3: {
+        addEntity(new Enemy3(640, 15, 3, tex));
+        addEntity(new Enemy3(720, 45, 3, tex));
+        addEntity(new Enemy3(680, 85, 3, tex));
+        addEntity(new Enemy3(640, 155, 3, tex));
+        addEntity(new Enemy3(720, 185, 3, tex));
+        addEntity(new Enemy3(680, 225, 3, tex));
+        addEntity(new Enemy3(640, 295, 3, tex));
+        addEntity(new Enemy3(720, 325, 3, tex));
+        addEntity(new Enemy3(680, 365, 3, tex));
+        addEntity(new Enemy3(640, 435, 3, tex));
+
+        break;
+      }
       default: {
-        addEntity(new Enemy2(640, 15, 1, tex));
-        addEntity(new Enemy2(720, 45, 1, tex));
-        addEntity(new Enemy2(680, 85, 1, tex));
-        addEntity(new Enemy2(640, 155, 1, tex));
-        addEntity(new Enemy2(720, 185, 1, tex));
-        addEntity(new Enemy2(680, 225, 1, tex));
-        addEntity(new Enemy2(640, 295, 1, tex));
-        addEntity(new Enemy2(720, 325, 1, tex));
-        addEntity(new Enemy2(680, 365, 1, tex));
-        addEntity(new Enemy2(640, 435, 1, tex));
+        addEntity(new Enemy3(640, 15, 1, tex));
+        addEntity(new Enemy3(720, 45, 1, tex));
+        addEntity(new Enemy3(680, 85, 1, tex));
+        addEntity(new Enemy3(640, 155, 1, tex));
+        addEntity(new Enemy3(720, 185, 1, tex));
+        addEntity(new Enemy3(680, 225, 1, tex));
+        addEntity(new Enemy3(640, 295, 1, tex));
+        addEntity(new Enemy3(720, 325, 1, tex));
+        addEntity(new Enemy3(680, 365, 1, tex));
+        addEntity(new Enemy3(640, 435, 1, tex));
       }
     }
 

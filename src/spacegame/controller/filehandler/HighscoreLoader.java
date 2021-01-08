@@ -25,7 +25,7 @@ public class HighscoreLoader {
             }
 
         } catch (IOException e) {
-            System.out.println("FILE END!");
+
         }
 
     }
@@ -38,10 +38,7 @@ public class HighscoreLoader {
             }
 
         } catch (IOException e) {
-            System.out.println("FILE END!");
-        }
-        for (Score score : Score.scores) {
-            System.out.println(score);
+
         }
     }
 
