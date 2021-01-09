@@ -21,6 +21,7 @@ public class Textures {
 	public BufferedImage[] enemy2Destroy = new BufferedImage[12];
 	public BufferedImage[] enemy2Projectile = new BufferedImage[7];
 	public BufferedImage[] enemy3 = new BufferedImage[9];
+	public BufferedImage[] enemy3Projectile = new BufferedImage[4];
 
 	private SpriteSheet ss = null;
 
@@ -54,6 +55,7 @@ public class Textures {
 		enemy2Destroy = loadImages(10, 12);
 		enemy2Projectile = loadImages(11, 7);
 		enemy3 = loadImages(15, 9);
+		enemy3Projectile = loadImages(16, 4);
 
 		health3 = ss.grabImage(4, 1, TILESIZE, TILESIZE);
 		health2 = ss.grabImage(5, 1, TILESIZE, TILESIZE);

@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 
 import spacegame.controller.Controller;
 import spacegame.gameobjects.Entity;
-import spacegame.gameobjects.Player;
 
 public class DestroyAnimation extends Animation implements Entity {
 
