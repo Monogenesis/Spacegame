@@ -265,6 +265,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void triggerNewGame() {
+
 		left = right = up = down = false;
 		Game.state = Game.STATE.Game;
 		p.init();
@@ -366,13 +367,11 @@ public class Game extends Canvas implements Runnable {
 				up = false;
 			} else if (key == KeyEvent.VK_SPACE && isShooting) {
 				isShooting = false;
-
 			} else if (key == KeyEvent.VK_K) {
 
 			} else if (key == KeyEvent.VK_H) {
 				Game.drawHitboxes = !drawHitboxes;
 			}
-
 		}
 
 	}

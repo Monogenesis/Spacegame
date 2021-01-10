@@ -22,7 +22,7 @@ public class Enemy3 extends Enemy {
             if (Player.player.getX() <= getX()) {
                 Controller.entities.add(new OscillatingProjectile(x, y, 2, tex, Player.player, true));
             } else {
-                Controller.entities.add(new OscillatingProjectile(x, y, 2, tex, Player.player, false));
+                Controller.entities.add(new OscillatingProjectile(x + 32, y, 2, tex, Player.player, false));
             }
             shotReady = false;
         } else if ((Controller.time) % 2 != 0) {
