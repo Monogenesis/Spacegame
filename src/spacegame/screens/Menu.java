@@ -1,9 +1,9 @@
 package spacegame.screens;
 
-import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,11 +12,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import org.w3c.dom.events.MouseEvent;
-
 import spacegame.Game;
 import spacegame.controller.Controller;
-import spacegame.controller.MouseInput;
 import spacegame.gameobjects.Entity;
 
 public abstract class Menu implements Entity {

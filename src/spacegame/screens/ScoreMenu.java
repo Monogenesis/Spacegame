@@ -1,15 +1,17 @@
 package spacegame.screens;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Map.Entry;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import spacegame.Game.STATE;
 import spacegame.controller.Controller;
 import spacegame.controller.helper.Score;
 import spacegame.gameobjects.Player;
 
-public class ScoreMenu extends Menu {
+public class ScoreMenu extends Menu implements PropertyChangeListener {
 
     public static String labelText = "SCORE";
     public final static String menuText = "MENU";
@@ -20,11 +22,61 @@ public class ScoreMenu extends Menu {
 
     private MenuButton restartButton;
     private MenuButton menuButton;
+    String lastScoreText;
+    int lastScoreY, highscoresY;
+    int allHighscoresY;
+    boolean lastScoreIsHighscore;
+    int lastScoreIndex;
+    String[] splitHighscores;
 
     public ScoreMenu(String label, Controller controller) {
         super(label, controller, MainMenu.menuLabelFont, MainMenu.labelColor);
         // menuButtons.add(restartButton = new MenuButton(0, 380, restartText, true));
         menuButtons.add(menuButton = new MenuButton(0, 430, menuText, true));
+        updateTextLocations();
+
+    }
+
+    void updateTextLocations() {
+
+        lastScoreText = "last score: " + String.valueOf(Player.score);
+        lastScoreY = MainMenu.getTextWorldCenterXPos(lastScoreFont, lastScoreText);
+        highscoresY = MainMenu.getTextWorldCenterXPos(highscoreHeaderFont, "Highscores");
+        lastScoreIndex = -1;
+        String highsccores = "";
+        for (int i = 0; i < Score.scores.size(); i++) {
+            Score score = Score.scores.get(i);
+            if (i == 10)
+                break;
+            if (score.isLastPlayerScore()) {
+                lastScoreIndex = i;
+                if (i == 0) {
+                    lastScoreIsHighscore = true;
+                }
+            }
+            highsccores += i + ".  ";
+            highsccores += score.value;
+            int spaceLength = 10;
+            for (int j = 0; j < (spaceLength - String.valueOf(score.value).length()); j++) {
+                highsccores += " ";
+            }
+            highsccores += score.date;
+            highsccores += "\n";
+            // highsccores += String.format("%s. %s %s\n", score.id, score.value,
+            // score.date);
+
+        }
+        splitHighscores = highsccores.split("\n");
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+
+        if (e.getNewValue().equals(STATE.Score)) {
+            System.out.printf("Property '%s': '%s' -> '%s'%n", e.getPropertyName(), e.getOldValue(), e.getNewValue());
+            updateTextLocations();
+        }
+
     }
 
     @Override
@@ -37,30 +89,44 @@ public class ScoreMenu extends Menu {
         super.render(g);
         g.setColor(Color.orange);
         g.setFont(lastScoreFont);
-        String lastScoreText = "last score: " + String.valueOf(Player.score);
-        g.drawString(lastScoreText, MainMenu.getTextWorldCenterXPos(lastScoreFont, lastScoreText), 130);
+        g.drawString(lastScoreText, lastScoreY, 130);
 
         g.setFont(highscoreHeaderFont);
         g.setColor(Color.WHITE);
-        g.drawString("Highscores", MainMenu.getTextWorldCenterXPos(highscoreHeaderFont, "Highscores"), 160);
+        g.drawString("Highscores", highscoresY, 160);
 
         g.setFont(highscoreTableFont);
-        int startHeight = 200;
-        for (int i = 0; i < Score.scores.size(); i++) {
-            if (i == 10)
-                break;
-            if (Score.scores.get(i).isLastPlayerScore()) {
-                if (i == 0)
+
+        // for (int i = 0; i < Score.scores.size(); i++) {
+        // if (i == 10)
+        // break;
+        // if (Score.scores.get(i).isLastPlayerScore()) {
+        // if (i == 0)
+        // g.setColor(Color.RED);
+        // else
+        // g.setColor(Color.YELLOW);
+        // } else {
+        // g.setColor(Color.GREEN);
+        // }
+        // allHighscoresY
+        // g.drawString((i + 1) + ".", 240, startHeight);
+        // g.drawString(String.valueOf(Score.scores.get(i).value), 270, startHeight);
+        // g.drawString(Score.scores.get(i).date, 330, startHeight);
+        // startHeight += 22;
+        // }
+        allHighscoresY = 170;
+
+        for (int i = 0; i < splitHighscores.length; i++) {
+            if (i == lastScoreIndex) {
+                if (i == 0 && lastScoreIsHighscore) {
                     g.setColor(Color.RED);
-                else
+                } else {
                     g.setColor(Color.YELLOW);
+                }
             } else {
                 g.setColor(Color.GREEN);
             }
-            g.drawString((i + 1) + ".", 240, startHeight);
-            g.drawString(String.valueOf(Score.scores.get(i).value), 270, startHeight);
-            g.drawString(Score.scores.get(i).date, 330, startHeight);
-            startHeight += 22;
+            g.drawString(splitHighscores[i], 240, allHighscoresY += g.getFontMetrics().getHeight());
         }
 
     }

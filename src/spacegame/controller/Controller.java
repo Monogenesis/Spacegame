@@ -101,7 +101,7 @@ public class Controller {
   public void restartlevel() {
     System.out.println("Restarting Level");
     running = false;
-    Game.state = STATE.Score;
+    Game.setState(STATE.Score);
     time = 0;
     levelCounter = 0;
     entities.clear();

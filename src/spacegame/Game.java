@@ -10,6 +10,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -59,15 +62,37 @@ public class Game extends Canvas implements Runnable {
 	private ScoreMenu scoreMenu;
 	private HelpMenu helpMenu;
 
+	private static PropertyChangeSupport stateChanges;
+
+	public static STATE state = STATE.Menu;
+
 	public static enum STATE {
 		Game, Menu, Help, Score
 	}
 
-	public static STATE state = STATE.Menu;
+	public static void setState(STATE newState) {
+		STATE oldState = Game.state;
+		Game.state = newState;
+		stateChanges.firePropertyChange("state", oldState, newState);
+	}
+
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener l) {
+		stateChanges.addPropertyChangeListener(l);
+	}
+
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener l) {
+		stateChanges.removePropertyChangeListener(l);
+	}
 
 	public void init() {
 
-		requestFocus();
+		// addPropertyChangeListener((PropertyChangeEvent e) -> {
+		// System.out.printf("Property '%s': '%s' -> '%s'%n", e.getPropertyName(),
+		// e.getOldValue(), e.getNewValue());
+		// });
+
 		BufferedImageLoader loader = new BufferedImageLoader();
 		HighscoreLoader.loadHighscore();
 
@@ -87,6 +112,9 @@ public class Game extends Canvas implements Runnable {
 		mainMenu = new MainMenu("SPACE PIRATES", c);
 		scoreMenu = new ScoreMenu("SCORE", c);
 		helpMenu = new HelpMenu("HELP", c, helpMenuBackground);
+
+		stateChanges = new PropertyChangeSupport(this);
+		addPropertyChangeListener(scoreMenu);
 
 	}
 
@@ -136,7 +164,8 @@ public class Game extends Canvas implements Runnable {
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println(updates + " Ticks, Fps " + frames + ", entities: " + Controller.entities.size());
+				// System.out.println(updates + " Ticks, Fps " + frames + ", entities: " +
+				// Controller.entities.size());
 				updates = 0;
 				frames = 0;
 				if (state == STATE.Game)
@@ -261,13 +290,13 @@ public class Game extends Canvas implements Runnable {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		game.start();
-
+		game.requestFocus();
 	}
 
 	private void triggerNewGame() {
 
 		left = right = up = down = false;
-		Game.state = Game.STATE.Game;
+		setState(STATE.Game);
 		p.init();
 		Controller.entities.clear();
 		Enemy.enemyCounter = 0;
@@ -285,15 +314,16 @@ public class Game extends Canvas implements Runnable {
 			switch (state) {
 				case Menu: {
 					if (c.running)
-						state = STATE.Game;
+
+						setState(STATE.Game);
 					break;
 				}
 				case Game:
-					Game.state = STATE.Menu;
+					setState(STATE.Menu);
 					break;
 				case Score: {
 					mainMenu.getContinueButton().enabled = c.running ? true : false;
-					Game.state = STATE.Menu;
+					setState(STATE.Menu);
 				}
 					break;
 				case Help: {
@@ -338,7 +368,7 @@ public class Game extends Canvas implements Runnable {
 							if (!c.running)
 								triggerNewGame();
 							else
-								state = STATE.Game;
+								setState(STATE.Game);
 							break;
 						}
 					}
@@ -391,7 +421,7 @@ public class Game extends Canvas implements Runnable {
 			switch (menuButton.getText()) {
 				case MainMenu.continueText: {
 					left = right = up = down = false;
-					Game.state = Game.STATE.Game;
+					setState(STATE.Game);
 					break;
 				}
 				case MainMenu.newGameText: {
@@ -399,12 +429,12 @@ public class Game extends Canvas implements Runnable {
 					break;
 				}
 				case MainMenu.highscoresText: {
-					Game.state = Game.STATE.Score;
+					setState(STATE.Score);
 					break;
 				}
 				case MainMenu.helpText: {
 					left = right = up = down = false;
-					Game.state = Game.STATE.Help;
+					setState(STATE.Help);
 					break;
 				}
 				case MainMenu.quitText: {
@@ -425,7 +455,7 @@ public class Game extends Canvas implements Runnable {
 				// }
 				case ScoreMenu.menuText: {
 					mainMenu.getContinueButton().enabled = c.running ? true : false;
-					Game.state = STATE.Menu;
+					setState(STATE.Menu);
 					break;
 				}
 				default:
@@ -437,7 +467,7 @@ public class Game extends Canvas implements Runnable {
 			}
 			switch (menuButton.getText()) {
 				case HelpMenu.menuText: {
-					Game.state = STATE.Menu;
+					setState(STATE.Menu);
 					break;
 				}
 				default:
