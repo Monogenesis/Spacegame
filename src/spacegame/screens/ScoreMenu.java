@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.SerializablePermission;
 
 import spacegame.Game.STATE;
 import spacegame.controller.Controller;
@@ -46,7 +47,7 @@ public class ScoreMenu extends Menu implements PropertyChangeListener {
         String highsccores = "";
         for (int i = 0; i < Score.scores.size(); i++) {
             Score score = Score.scores.get(i);
-            if (i == 10)
+            if (i == 9)
                 break;
             if (score.isLastPlayerScore()) {
                 lastScoreIndex = i;
@@ -54,11 +55,12 @@ public class ScoreMenu extends Menu implements PropertyChangeListener {
                     lastScoreIsHighscore = true;
                 }
             }
-            highsccores += i + ".  ";
+            highsccores += (i + 1) + ".  ";
             highsccores += score.value;
-            int spaceLength = 10;
+            int spaceLength = 4;
+            System.out.println((spaceLength - String.valueOf(score.value).length()));
             for (int j = 0; j < (spaceLength - String.valueOf(score.value).length()); j++) {
-                highsccores += " ";
+                highsccores += "  ";
             }
             highsccores += score.date;
             highsccores += "\n";
@@ -121,10 +123,10 @@ public class ScoreMenu extends Menu implements PropertyChangeListener {
                 if (i == 0 && lastScoreIsHighscore) {
                     g.setColor(Color.RED);
                 } else {
-                    g.setColor(Color.YELLOW);
+                    g.setColor(Color.GREEN);
                 }
             } else {
-                g.setColor(Color.GREEN);
+                g.setColor(Color.BLUE);
             }
             g.drawString(splitHighscores[i], 240, allHighscoresY += g.getFontMetrics().getHeight());
         }
