@@ -3,6 +3,8 @@ package spacegame.gameobjects;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import javax.sound.sampled.SourceDataLine;
+
 import spacegame.animation.Animation;
 import spacegame.animation.PlayerTurnAnimation;
 import spacegame.animation.Textures;
@@ -11,7 +13,8 @@ import spacegame.controller.Point;
 import spacegame.controller.filehandler.HighscoreLoader;
 import spacegame.controller.helper.Score;
 import spacegame.gameobjects.enemies.Enemy;
-import spacegame.gameobjects.projectiles.Bullet;
+import spacegame.gameobjects.projectiles.LaserProjectile;
+import spacegame.gameobjects.projectiles.RocketProjectile;
 
 public class Player extends GameObject {
 
@@ -35,7 +38,7 @@ public class Player extends GameObject {
 	Controller controller;
 	private int health = 3;
 	private int ammunitionCount = 40;
-	public static int score = 0;
+	public static int scoreValue = 0;
 	private Animation leftAnimation;
 
 	public Player(double x, double y, Textures tex) {
@@ -63,10 +66,37 @@ public class Player extends GameObject {
 		position.setY(this.y);
 	}
 
-	public void shoot() {
+	public void shootRocket() {
 		if (!turning && ammunitionCount > 0) {
 			ammunitionCount--;
-			controller.addEntity(new Bullet(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1));
+			controller.addEntity(new RocketProjectile(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1));
+		}
+	}
+
+	public double clampDouble(double d, double min, double max) {
+		if (d > max) {
+			return max;
+		} else if (d < min) {
+			return min;
+		}
+		return d;
+	}
+
+	public void shootLaser(Point direction) {
+		if (!turning) {
+			System.out.println(direction);
+			// direction is player direction
+			if (lookingRight && direction.getX() > 0) {
+				// Check if direction is in the maximum angle range
+				Point tmp = new Point(clampDouble(direction.getX(), 0.95, 1), clampDouble(direction.getY(), -0.2, 0.2));
+				controller.addEntity(new LaserProjectile(getX(), getY(), 4, tex, player, tmp));
+			} else if (!lookingRight && direction.getX() < 0) {
+				// Check if direction is in the maximum angle range
+				Point tmp = new Point(clampDouble(direction.getX(), -1, -0.95),
+						clampDouble(direction.getY(), -0.2, 0.2));
+				controller.addEntity(new LaserProjectile(getX(), getY(), 4, tex, player, tmp));
+			}
+
 		}
 	}
 
@@ -90,6 +120,10 @@ public class Player extends GameObject {
 		this.controller = controller;
 	}
 
+	public Point getCenterPos() {
+		return new Point(getX() + hitboxWidth, getY() + hitboxHeight);
+	}
+
 	public void tick() {
 		x += velX;
 		y += velY;
@@ -104,6 +138,7 @@ public class Player extends GameObject {
 		if (y >= 480 - 32)
 			y = 480 - 32;
 
+		// TODO Optimization
 		for (int i = 0; i < Controller.entities.size(); i++) {
 			Entity entity = Controller.entities.get(i);
 			if (entity instanceof GameObject) {
@@ -136,7 +171,7 @@ public class Player extends GameObject {
 	}
 
 	private void resetPlayer() {
-		new Score(score);
+		new Score(scoreValue);
 		HighscoreLoader.saveHighscores();
 		init();
 		controller.restartlevel();

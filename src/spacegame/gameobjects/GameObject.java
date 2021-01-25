@@ -41,8 +41,6 @@ public class GameObject implements Entity {
 
 	public void tick() {
 		x -= speed;
-		if (x < -32)
-			x = 640;
 		anima.runAnimation();
 	}
 

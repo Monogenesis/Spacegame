@@ -13,9 +13,11 @@ public class Textures {
 	public BufferedImage[] playerLookLeft = new BufferedImage[3];
 	public BufferedImage[] playerTurnLeft = new BufferedImage[6];
 	public BufferedImage[] playerTurnRight = new BufferedImage[6];
+	public BufferedImage[] bullet = new BufferedImage[3];
+	public BufferedImage[] laser = new BufferedImage[1];
+
 	public BufferedImage[] enemy1 = new BufferedImage[3];
 	public BufferedImage[] enemy1Destroy = new BufferedImage[8];
-	public BufferedImage[] bullet = new BufferedImage[3];
 	public BufferedImage[] ammunition = new BufferedImage[7];
 	public BufferedImage[] enemy2 = new BufferedImage[7];
 	public BufferedImage[] enemy2Destroy = new BufferedImage[12];
@@ -45,7 +47,7 @@ public class Textures {
 		playerLookLeft = loadImages(13, 3);
 		playerTurnLeft = loadImages(12, 6);
 		playerTurnRight = loadImages(14, 6);
-
+		laser = loadImages(17, 1);
 		bullet = loadImages(2, 3);
 
 		ammunition = loadImages(7, 7);

@@ -15,6 +15,10 @@ public class Projectile extends GameObject {
 
     protected Player player;
 
+    public enum TYPE {
+        ROCKET, LASER
+    }
+
     public Projectile(double x, double y, int speed, Textures tex, Animation animation, int boundWidth, int boundHeight,
             Player player) {
         super(x, y, speed, tex, animation, boundWidth, boundHeight);

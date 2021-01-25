@@ -23,8 +23,9 @@ import spacegame.controller.Controller;
 import spacegame.controller.KeyInput;
 import spacegame.controller.MouseInput;
 import spacegame.controller.commands.Command;
+import spacegame.controller.commands.FireLaserCommand;
 import spacegame.controller.commands.MoveUnitCommand;
-import spacegame.controller.commands.ShootCommand;
+import spacegame.controller.commands.FireRocketCommand;
 import spacegame.controller.filehandler.HighscoreLoader;
 import spacegame.gameobjects.GameObject;
 import spacegame.gameobjects.Player;
@@ -53,7 +54,8 @@ public class Game extends Canvas implements Runnable {
 	// private BufferedImage player;
 
 	private Player p;
-	private boolean right, left, up, down, isShooting = false;
+	private boolean right, left, up, down, isShootingRocket, isShootingLaser = false;
+	private spacegame.controller.Point playerToMouseDirection;
 	private Controller c;
 	private Textures tex;
 
@@ -86,12 +88,10 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void init() {
-
 		// addPropertyChangeListener((PropertyChangeEvent e) -> {
 		// System.out.printf("Property '%s': '%s' -> '%s'%n", e.getPropertyName(),
 		// e.getOldValue(), e.getNewValue());
 		// });
-
 		BufferedImageLoader loader = new BufferedImageLoader();
 		HighscoreLoader.loadHighscore();
 
@@ -204,9 +204,13 @@ public class Game extends Canvas implements Runnable {
 			// commands.add(new MoveUnitCommand(unit, destX, (int) unit.getY()));
 			commands.add(new MoveUnitCommand(unit, 5, 0));
 		}
-		if (isShooting) {
-			isShooting = false;
-			commands.add(new ShootCommand(p));
+		if (isShootingRocket) {
+			isShootingRocket = false;
+			commands.add(new FireRocketCommand(p));
+		}
+		if (isShootingLaser) {
+			isShootingLaser = false;
+			commands.add(new FireLaserCommand(p, playerToMouseDirection));
 		}
 
 		return commands;
@@ -248,7 +252,7 @@ public class Game extends Canvas implements Runnable {
 
 		if (state == STATE.Game) {
 			g.setColor(Color.white);
-			g.drawString("score: " + Player.score, 20, 40);
+			g.drawString("score: " + Player.scoreValue, 20, 40);
 			g.drawString("level: " + c.getLevelCounter(), 20, 15);
 			g.drawString("time: " + Controller.time, 70, 15);
 			g.drawString("ammo: " + p.getAmmunitionCount(), 20, 60);
@@ -301,7 +305,7 @@ public class Game extends Canvas implements Runnable {
 		Enemy.enemyCounter = 0;
 		Controller.time = 0;
 		c.levelCounter = 0;
-		Player.score = 0;
+		Player.scoreValue = 0;
 		c.running = true;
 		mainMenu.getContinueButton().enabled = c.running ? true : false;
 	}
@@ -353,8 +357,8 @@ public class Game extends Canvas implements Runnable {
 							break;
 						}
 						case KeyEvent.VK_SPACE: {
-							if (!isShooting) {
-								isShooting = true;
+							if (!isShootingRocket) {
+								isShootingRocket = true;
 							}
 							break;
 						}
@@ -394,8 +398,8 @@ public class Game extends Canvas implements Runnable {
 				down = false;
 			} else if (key == KeyEvent.VK_W) {
 				up = false;
-			} else if (key == KeyEvent.VK_SPACE && isShooting) {
-				isShooting = false;
+			} else if (key == KeyEvent.VK_SPACE && isShootingRocket) {
+				isShootingRocket = false;
 			} else if (key == KeyEvent.VK_K) {
 
 			} else if (key == KeyEvent.VK_H) {
@@ -405,7 +409,58 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
+	private spacegame.controller.Point calculateDirection(Point mousePos) {
+
+		double distanceX = mousePos.getX() - p.getCenterPos().getX();
+		double distanceY = mousePos.getY() - p.getCenterPos().getY();
+		double angle = Math.atan(distanceY / (distanceX));
+		double angleDregree = Math.toDegrees(angle);
+
+		double x = Math.cos(Math.toRadians(angleDregree));
+		double y = Math.sin(Math.toRadians(angleDregree));
+		// 1. Quadrant
+		if (distanceX >= 0 && distanceY < 0) {
+			// System.out.println("1 Q");
+
+		}
+		// 2. Quadrant
+		else if (distanceX < 0 && distanceY < 0) {
+			// System.out.println("2 Q");
+			x = Math.abs(x) * (-1);
+			y = Math.abs(y) * (-1);
+
+		}
+		// 3. Quadrant
+		else if (distanceX < 0 && distanceY >= 0) {
+			// System.out.println("3 Q");
+			x = Math.abs(x) * (-1);
+			y = Math.abs(y);
+
+		}
+		// 4. Quadrant
+		else if (distanceX >= 0 && distanceY >= 0) {
+			// System.out.println("4 Q");
+
+		}
+
+		return new spacegame.controller.Point(x, y);
+
+	}
+
 	public void mousePressed(MouseEvent e) {
+		switch (state) {
+			case Game: {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+
+					playerToMouseDirection = calculateDirection(e.getPoint());
+					// System.out.println(playerToMouseDirection);
+					isShootingLaser = true;
+				}
+				break;
+			}
+			default:
+				break;
+		}
 
 	}
 
@@ -472,6 +527,9 @@ public class Game extends Canvas implements Runnable {
 				default:
 			}
 		} else if (state == STATE.Game) {
+			if (e.getButton() == MouseEvent.BUTTON1) {
+				isShootingLaser = false;
+			}
 
 		}
 

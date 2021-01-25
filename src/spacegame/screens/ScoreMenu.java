@@ -40,7 +40,7 @@ public class ScoreMenu extends Menu implements PropertyChangeListener {
 
     void updateTextLocations() {
 
-        lastScoreText = "last score: " + String.valueOf(Player.score);
+        lastScoreText = "last score: " + String.valueOf(Player.scoreValue);
         lastScoreY = MainMenu.getTextWorldCenterXPos(lastScoreFont, lastScoreText);
         highscoresY = MainMenu.getTextWorldCenterXPos(highscoreHeaderFont, "Highscores");
         lastScoreIndex = -1;
@@ -98,24 +98,6 @@ public class ScoreMenu extends Menu implements PropertyChangeListener {
         g.drawString("Highscores", highscoresY, 160);
 
         g.setFont(highscoreTableFont);
-
-        // for (int i = 0; i < Score.scores.size(); i++) {
-        // if (i == 10)
-        // break;
-        // if (Score.scores.get(i).isLastPlayerScore()) {
-        // if (i == 0)
-        // g.setColor(Color.RED);
-        // else
-        // g.setColor(Color.YELLOW);
-        // } else {
-        // g.setColor(Color.GREEN);
-        // }
-        // allHighscoresY
-        // g.drawString((i + 1) + ".", 240, startHeight);
-        // g.drawString(String.valueOf(Score.scores.get(i).value), 270, startHeight);
-        // g.drawString(Score.scores.get(i).date, 330, startHeight);
-        // startHeight += 22;
-        // }
         allHighscoresY = 170;
 
         for (int i = 0; i < splitHighscores.length; i++) {

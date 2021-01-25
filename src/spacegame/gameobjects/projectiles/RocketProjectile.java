@@ -6,11 +6,11 @@ import spacegame.controller.Controller;
 import spacegame.gameobjects.Player;
 import spacegame.gameobjects.enemies.Enemy;
 
-public class Bullet extends Projectile {
+public class RocketProjectile extends Projectile {
 
 	private int direction;
 
-	public Bullet(double x, double y, Textures tex, Player player, int direction) {
+	public RocketProjectile(double x, double y, Textures tex, Player player, int direction) {
 		super(x, y, 5, tex, new Animation(5, tex.bullet), 17, 7, player);
 		this.direction = direction;
 
