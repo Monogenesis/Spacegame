@@ -82,7 +82,7 @@ public class Player extends GameObject {
 
 	public void shootLaser(Point direction) {
 		if (!turning) {
-			System.out.println(direction);
+			// System.out.println(direction);
 			// direction is player direction
 			if (lookingRight && direction.getX() > 0) {
 				// Check if direction is in the maximum angle range

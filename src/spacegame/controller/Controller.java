@@ -101,12 +101,13 @@ public class Controller {
 
   public void restartlevel() {
     System.out.println("Restarting Level");
-    for (Entity entity : entities) {
-      if (entity instanceof GameObject) {
-        GameObject o = (GameObject) entity;
+    for (int i = 0; i < entities.size(); i++) {
+      if (entities.get(i) instanceof GameObject) {
+        GameObject o = (GameObject) entities.get(i);
         o.destroySelf(null);
       }
     }
+
     running = false;
     Game.setState(STATE.Score);
     time = 0;
