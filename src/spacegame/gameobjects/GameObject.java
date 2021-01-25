@@ -8,6 +8,7 @@ import spacegame.Game;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.controller.Controller;
+import spacegame.controller.Point;
 
 public class GameObject implements Entity {
 
@@ -32,6 +33,10 @@ public class GameObject implements Entity {
 		this.hitboxWidth = boundWidth;
 		this.hitboxHeight = boundHeight;
 		anima = animation;
+	}
+
+	public Point getCenterPos() {
+		return new Point(getX() + hitboxWidth, getY() + hitboxHeight);
 	}
 
 	public void moveTo(int x, int y) {

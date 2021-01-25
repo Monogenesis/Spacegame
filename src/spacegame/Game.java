@@ -204,8 +204,8 @@ public class Game extends Canvas implements Runnable {
 			// commands.add(new MoveUnitCommand(unit, destX, (int) unit.getY()));
 			commands.add(new MoveUnitCommand(unit, 5, 0));
 		}
-		if (isShootingRocket) {
-			isShootingRocket = false;
+		if (!isShootingRocket) {
+			isShootingRocket = true;
 			commands.add(new FireRocketCommand(p));
 		}
 		if (isShootingLaser) {
@@ -421,7 +421,6 @@ public class Game extends Canvas implements Runnable {
 		// 1. Quadrant
 		if (distanceX >= 0 && distanceY < 0) {
 			// System.out.println("1 Q");
-
 		}
 		// 2. Quadrant
 		else if (distanceX < 0 && distanceY < 0) {
@@ -451,7 +450,6 @@ public class Game extends Canvas implements Runnable {
 		switch (state) {
 			case Game: {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-
 					playerToMouseDirection = calculateDirection(e.getPoint());
 					// System.out.println(playerToMouseDirection);
 					isShootingLaser = true;

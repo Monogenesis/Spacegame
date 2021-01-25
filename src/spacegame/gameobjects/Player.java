@@ -12,7 +12,7 @@ import spacegame.controller.filehandler.HighscoreLoader;
 import spacegame.controller.helper.Score;
 import spacegame.gameobjects.enemies.Enemy;
 import spacegame.gameobjects.projectiles.LaserProjectile;
-import spacegame.gameobjects.projectiles.RocketProjectile;
+import spacegame.gameobjects.projectiles.HomingMissileProjectile;
 
 public class Player extends GameObject {
 
@@ -67,7 +67,7 @@ public class Player extends GameObject {
 	public void shootRocket() {
 		if (!turning && ammunitionCount > 0) {
 			ammunitionCount--;
-			controller.addEntity(new RocketProjectile(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1, 5));
+			controller.addEntity(new HomingMissileProjectile(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1, 5));
 		}
 	}
 
@@ -116,10 +116,6 @@ public class Player extends GameObject {
 
 	public void setController(Controller controller) {
 		this.controller = controller;
-	}
-
-	public Point getCenterPos() {
-		return new Point(getX() + hitboxWidth, getY() + hitboxHeight);
 	}
 
 	public void tick() {
@@ -171,8 +167,8 @@ public class Player extends GameObject {
 	private void resetPlayer() {
 		new Score(scoreValue);
 		HighscoreLoader.saveHighscores();
-		init();
 		controller.restartlevel();
+		init();
 	}
 
 	@Override

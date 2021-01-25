@@ -11,6 +11,7 @@ import spacegame.Game.STATE;
 import spacegame.animation.Textures;
 import spacegame.gameobjects.AmmunitionDrop;
 import spacegame.gameobjects.Entity;
+import spacegame.gameobjects.GameObject;
 import spacegame.gameobjects.Player;
 import spacegame.gameobjects.enemies.Enemy;
 import spacegame.gameobjects.enemies.Enemy1;
@@ -100,11 +101,17 @@ public class Controller {
 
   public void restartlevel() {
     System.out.println("Restarting Level");
+    for (Entity entity : entities) {
+      if (entity instanceof GameObject) {
+        GameObject o = (GameObject) entity;
+        o.destroySelf(null);
+      }
+    }
     running = false;
     Game.setState(STATE.Score);
     time = 0;
     levelCounter = 0;
-    entities.clear();
+
   }
 
   public void updateTime() {
