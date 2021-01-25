@@ -12,9 +12,10 @@ public class Enemy2 extends Enemy {
 
     private double sinusCounter;
     private boolean shotReady;
+    public static int DEFAULT_HITPOINTS = 3;
 
     public Enemy2(double x, double y, int speed, Textures tex) {
-        super(x, y, speed, tex, new Animation(5, tex.enemy2), 30, 24);
+        super(x, y, speed, tex, new Animation(5, tex.enemy2), 30, 24, DEFAULT_HITPOINTS);
         hitboxXOffset = 3;
         hitboxYOffset = 5;
     }
@@ -22,7 +23,7 @@ public class Enemy2 extends Enemy {
     @Override
     public void tick() {
         if (shotReady && (Controller.time) % 2 == 0) {
-            Controller.entities.add(new LightningProjectile(x, y, 2, tex, Player.player));
+            Controller.entities.add(new LightningProjectile(x, y, 2, tex, Player.player, 1));
             shotReady = false;
         } else if ((Controller.time) % 2 != 0) {
             shotReady = true;

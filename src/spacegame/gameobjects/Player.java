@@ -3,8 +3,6 @@ package spacegame.gameobjects;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import javax.sound.sampled.SourceDataLine;
-
 import spacegame.animation.Animation;
 import spacegame.animation.PlayerTurnAnimation;
 import spacegame.animation.Textures;
@@ -69,7 +67,7 @@ public class Player extends GameObject {
 	public void shootRocket() {
 		if (!turning && ammunitionCount > 0) {
 			ammunitionCount--;
-			controller.addEntity(new RocketProjectile(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1));
+			controller.addEntity(new RocketProjectile(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1, 5));
 		}
 	}
 
@@ -89,12 +87,12 @@ public class Player extends GameObject {
 			if (lookingRight && direction.getX() > 0) {
 				// Check if direction is in the maximum angle range
 				Point tmp = new Point(clampDouble(direction.getX(), 0.95, 1), clampDouble(direction.getY(), -0.2, 0.2));
-				controller.addEntity(new LaserProjectile(getX(), getY(), 4, tex, player, tmp));
+				controller.addEntity(new LaserProjectile(getX(), getY(), 4, tex, player, tmp, 1));
 			} else if (!lookingRight && direction.getX() < 0) {
 				// Check if direction is in the maximum angle range
 				Point tmp = new Point(clampDouble(direction.getX(), -1, -0.95),
 						clampDouble(direction.getY(), -0.2, 0.2));
-				controller.addEntity(new LaserProjectile(getX(), getY(), 4, tex, player, tmp));
+				controller.addEntity(new LaserProjectile(getX(), getY(), 4, tex, player, tmp, 1));
 			}
 
 		}

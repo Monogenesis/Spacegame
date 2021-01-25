@@ -5,11 +5,12 @@ import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.gameobjects.Player;
 
-public class OscillatingProjectile extends Projectile {
+public class OscillatingProjectile extends EnemyProjectile {
     private boolean movingLeft;
 
-    public OscillatingProjectile(double x, double y, int speed, Textures tex, Player player, boolean movingLeft) {
-        super(x, y, speed, tex, new Animation(2, tex.enemy3Projectile), 7, 21, player);
+    public OscillatingProjectile(double x, double y, int speed, Textures tex, Player player, boolean movingLeft,
+            int damageValue) {
+        super(x, y, speed, tex, new Animation(2, tex.enemy3Projectile), 7, 21, player, damageValue);
         hitboxXOffset = 0;
         hitboxYOffset = 6;
         this.movingLeft = movingLeft;
@@ -24,11 +25,6 @@ public class OscillatingProjectile extends Projectile {
         } else {
             x += speed;
             setX(getX() + speed);
-        }
-
-        if (collision(getHitbox(), player.getHitbox())) {
-            player.loseHealth();
-            Controller.entities.remove(this);
         }
 
     }

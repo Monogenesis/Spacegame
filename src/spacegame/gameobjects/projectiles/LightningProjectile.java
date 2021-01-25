@@ -5,10 +5,10 @@ import spacegame.animation.Textures;
 import spacegame.controller.Controller;
 import spacegame.gameobjects.Player;
 
-public class LightningProjectile extends Projectile {
+public class LightningProjectile extends EnemyProjectile {
 
-    public LightningProjectile(double x, double y, int speed, Textures tex, Player player) {
-        super(x, y, speed, tex, new Animation(4, tex.enemy2Projectile), 30, 6, player);
+    public LightningProjectile(double x, double y, int speed, Textures tex, Player player, int damageValue) {
+        super(x, y, speed, tex, new Animation(4, tex.enemy2Projectile), 30, 6, player, damageValue);
         hitboxXOffset = 2;
         hitboxYOffset = 10;
     }
@@ -19,11 +19,6 @@ public class LightningProjectile extends Projectile {
 
         x -= speed;
         setX(getX() - speed);
-
-        if (collision(getHitbox(), player.getHitbox())) {
-            player.loseHealth();
-            Controller.entities.remove(this);
-        }
 
     }
 }

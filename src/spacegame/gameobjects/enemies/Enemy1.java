@@ -1,5 +1,7 @@
 package spacegame.gameobjects.enemies;
 
+import javax.swing.DefaultBoundedRangeModel;
+
 import spacegame.animation.Animation;
 import spacegame.animation.DestroyAnimation;
 import spacegame.animation.Textures;
@@ -9,8 +11,10 @@ import spacegame.gameobjects.Entity;
 public class Enemy1 extends Enemy {
     private boolean movingFromRight = true;
 
+    public static int DEFAULT_HITPOINTS = 2;
+
     public Enemy1(double x, double y, int speed, Textures tex) {
-        super(x, y, speed, tex, new Animation(4, tex.enemy1), 26, 17);
+        super(x, y, speed, tex, new Animation(4, tex.enemy1), 26, 17, DEFAULT_HITPOINTS);
 
     }
 

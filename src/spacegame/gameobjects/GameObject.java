@@ -53,7 +53,6 @@ public class GameObject implements Entity {
 	}
 
 	public void destroySelf(Entity reason) {
-
 		Controller.entities.remove(this);
 	}
 

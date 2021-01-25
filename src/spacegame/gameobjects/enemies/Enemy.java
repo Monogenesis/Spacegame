@@ -12,11 +12,20 @@ import spacegame.gameobjects.projectiles.RocketProjectile;
 public class Enemy extends GameObject {
 
     public static int enemyCounter;
+    protected int hitpoints;
 
-    protected Enemy(double x, double y, int speed, Textures tex, Animation animation, int hitboxWidth,
-            int hitboxHeight) {
+    protected Enemy(double x, double y, int speed, Textures tex, Animation animation, int hitboxWidth, int hitboxHeight,
+            int hitpoints) {
         super(x, y, speed, tex, animation, hitboxWidth, hitboxHeight);
+        this.hitpoints = hitpoints;
         enemyCounter++;
+    }
+
+    public void loseHitpoints(GameObject reason, int damage) {
+        this.hitpoints -= damage;
+        if (hitpoints <= 0) {
+            destroySelf(reason);
+        }
     }
 
     @Override
