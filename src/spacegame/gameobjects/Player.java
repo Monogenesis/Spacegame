@@ -67,7 +67,7 @@ public class Player extends GameObject {
 	public void shootRocket() {
 		if (!turning && ammunitionCount > 0) {
 			ammunitionCount--;
-			controller.addEntity(new HomingMissileProjectile(getX(), getY() + 13, tex, this, lookingRight ? 1 : -1, 5));
+			controller.addEntity(new HomingMissileProjectile(getX(), getY() + 13, tex, this, 5));
 		}
 	}
 

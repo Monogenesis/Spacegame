@@ -1,13 +1,12 @@
 package spacegame.gameobjects.projectiles;
 
-import java.lang.Enum.EnumDesc;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Map.Entry;
-
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import spacegame.Game;
 import spacegame.animation.Animation;
 import spacegame.animation.Textures;
 import spacegame.controller.Point;
@@ -16,14 +15,29 @@ import spacegame.gameobjects.enemies.Enemy;
 
 public class HomingMissileProjectile extends PlayerProjectile {
 
-	private int direction;
+	Point direction = new Point(0, 0);
+	Animation lookingLeftAnimation;
 
-	public HomingMissileProjectile(double x, double y, Textures tex, Player player, int direction, int damageValue) {
+	public HomingMissileProjectile(double x, double y, Textures tex, Player player, int damageValue) {
 		super(x, y, 5, tex, new Animation(5, tex.bullet), 17, 7, player, damageValue);
-		this.direction = direction;
 
 		hitboxXOffset = -2;
 		hitboxYOffset = -2;
+	}
+
+	// @Override
+	// public void render(Graphics g) {
+	// anima.drawAnimation(g, x, y, calcAngle(direction));
+	// }
+
+	private double calcAngle(Point a) {
+		double angle = (float) Math.toDegrees(Math.atan2(a.getY() - getY(), a.getX() - getX()));
+
+		if (angle < 0) {
+			angle += 360;
+		}
+		System.out.println(angle);
+		return angle;
 	}
 
 	private Point getDirectionToClosestEnemy() {
@@ -44,17 +58,11 @@ public class HomingMissileProjectile extends PlayerProjectile {
 				minDistEnemy = entry.getKey();
 			}
 		}
-
-		// Enemy maxDistEnemy =
-		// Optional<Entry<Enemy, Double>> maxEntry = enemyDistance.entrySet().stream()
-		// .max((Entry<Enemy, Double> e1, Entry<Enemy, Double> e2) ->
-		// e1.getValue().compareTo(e2.getValue()));
-		// Enemy maxDistEnemy = maxEntry.get().getKey();
-		Point direction = calculateDirection(
+		direction = calculateDirection(
 				new Point(minDistEnemy.getCenterPos().getX(), minDistEnemy.getCenterPos().getY()),
 				new Point(getX(), getY()));
 
-		return new Point(direction.getX(), direction.getY());
+		return direction;
 	}
 
 	private Point calculateDirection(Point a, Point b) {
