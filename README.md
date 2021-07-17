@@ -5,7 +5,7 @@ A 2D spaceshooter written in Java, completly made from scratch.
 
 ## Demo
 
-Youtube: 
+Youtube: https://www.youtube.com/watch?v=BjL0GlFwX1c
 
   
 ## Lessons Learned
