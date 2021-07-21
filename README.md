@@ -1,7 +1,7 @@
 
 # Spacegame
 
-A 2D spaceshooter written in Java, completly made from scratch.
+A 2D spaceshooter written in Java, made from scratch.
 
 ## Motivation
 
